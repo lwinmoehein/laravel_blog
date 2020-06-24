@@ -22,8 +22,11 @@ Route::put('articles','ArticleController@store');
 Route::get('articles/{id}/edit','ArticleController@edit')->name('articles.edit');
 Route::put('articles/{id}/edit','ArticleController@update');
 //show one
-Route::get('/{id}','ArticleController@show')->name('articles.show');
 Route::get('articles/{id}','ArticleController@show')->name('articles.show');
 //ddelete
 Route::delete('articles/{id}','ArticleController@destroy');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

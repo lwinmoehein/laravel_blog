@@ -1,4 +1,4 @@
-<div>
+<div class="container alert alert-primary">
     <h1>{{$article->title}}</h1>
     <p>{{$article->body}}</p>
     <h3>tagged topics...</h3>

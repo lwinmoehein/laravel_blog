@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-
-@foreach ($articles as $article)
-<x-article-component :article="$article"/>
-@endforeach
-
+  <div class="container">
+    <x-article-list-component :articles="$articles"/>
+  </div>
 @endsection
 
