@@ -8,7 +8,7 @@ use App\Http\Requests\ArticleStoreRequest;
 use App\Repositories\ArticleRepository;
 use App\Repositories\TagRepository;
 use App\Services\ArticleService;
-
+use Illuminate\Support\Facades\Auth;
 class ArticleController extends Controller
 {
     protected $articleService;
@@ -16,12 +16,14 @@ class ArticleController extends Controller
     public function __construct(ArticleRepository $articleRepository,TagRepository $tagRepository)
     {
         $this->articleService=new ArticleService($articleRepository,$tagRepository);
-
+        $this->middleware('auth');
     }
 
     public function index()
     {
         //
+        $user=Auth::user();
+
         $articles=$this->articleService->getAll();
         return view('articles.index',compact(['articles']));
     }
@@ -71,6 +73,8 @@ class ArticleController extends Controller
     public function edit($id)
     {
         //
+        $user=Auth::user();
+
         $tags=$this->articleService->getallTags();
         $article=$this->articleService->get($id);
         return view('articles.new',compact('tags','article'));
