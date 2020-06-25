@@ -4,20 +4,21 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ArticleFormComponent extends Component
+class TagSelectComponent extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $article=null;
     public $tags;
-    public function __construct($article,$tags)
+    public $article;
+
+    public function __construct($tags,$article)
     {
         //
-        $this->article=$article;
         $this->tags=$tags;
+        $this->article=$article;
     }
 
     /**
@@ -27,6 +28,6 @@ class ArticleFormComponent extends Component
      */
     public function render()
     {
-        return view('components.article-form-component');
+        return view('components.tag-select-component');
     }
 }

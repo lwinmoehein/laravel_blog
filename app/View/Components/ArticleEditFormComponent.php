@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ArticleFormComponent extends Component
+class ArticleEditFormComponent extends Component
 {
     /**
      * Create a new component instance.
@@ -27,6 +27,6 @@ class ArticleFormComponent extends Component
      */
     public function render()
     {
-        return view('components.article-form-component');
+        return view('components.article-edit-form-component');
     }
 }
