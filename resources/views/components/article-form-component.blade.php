@@ -1,3 +1,43 @@
 <div>
-    <!-- Act only according to that maxim whereby you can, at the same time, will that it should become a universal law. - Immanuel Kant -->
-</div>
+    <form action="{{route('articles.store')}}" method="put">
+        @csrf
+        <div class="form-group row">
+            <div class="col-xs-2">
+                <label for="title" >Article Title</label>
+                @if(isset($article))
+                  <input class="form-control" type="text" name="title" value="{{$article->title}}" >
+                @else
+                   <input class="form-control" type="text" name="title" >
+                @endif
+            </div>
+        </div>
+        <div class="for-group row">
+            <div class="col-xs-2">
+                <label for="title">Article body</label>
+                @if(isset($article))
+                     <textarea class="form-control" name="body" id="body" cols="30" rows="5">{{$article->body}}</textarea>
+                @else
+                    <textarea class="form-control" name="body" id="body" cols="30" rows="5"></textarea>
+                @endif
+            </div>
+        </div>
+        <div class="for-group row">
+            <div class="col-xs-2">
+                <label for="title">Article tags</label>
+                @if(isset($article))
+                  <x-tag-select-component :tags="$tags" :article="$article"/>
+                @else
+                  <x-tag-select-component :tags="$tags" :article="null" />
+                @endif
+            </div>
+        </div>
+        <div class="for-group row mt-4">
+            <div class="col-xs-2">
+                <input type="submit" class="btn btn-primary" value="Post Article">
+            </div>
+
+        </div>
+        </div>
+
+    </form>
+ </div>

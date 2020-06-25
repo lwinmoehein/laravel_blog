@@ -1,5 +1,7 @@
 <div>
-     @foreach ($articles as $article)
+     @forelse ($articles as $article)
         <x-article-component :article="$article"/>
-     @endforeach
+     @empty
+        <h1>No articles found</h1>
+     @endforelse
 </div>

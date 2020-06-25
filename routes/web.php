@@ -17,7 +17,7 @@ Route::get('/', 'ArticleController@index')->name('articles.index');
 Route::get('articles','ArticleController@index')->name('articles.index');
 //create new
 Route::get('articles/create','ArticleController@create')->name('articles.create');
-Route::put('articles','ArticleController@store');
+Route::put('articles','ArticleController@store')->name('articles.store');
 //edit existing
 Route::get('articles/{id}/edit','ArticleController@edit')->name('articles.edit');
 Route::put('articles/{id}/edit','ArticleController@update');

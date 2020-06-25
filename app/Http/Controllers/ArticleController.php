@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
+use App\Http\Requests\ArticleStoreRequest;
 use App\Repositories\ArticleRepository;
+use App\Repositories\TagRepository;
 use App\Services\ArticleService;
 
 class ArticleController extends Controller
 {
     protected $articleService;
 
-    public function __construct(ArticleRepository $articleRepository)
+    public function __construct(ArticleRepository $articleRepository,TagRepository $tagRepository)
     {
-        $this->articleService=new ArticleService($articleRepository);
+        $this->articleService=new ArticleService($articleRepository,$tagRepository);
 
     }
 
@@ -21,7 +23,7 @@ class ArticleController extends Controller
     {
         //
         $articles=$this->articleService->getAll();
-        return view('articles.index',['articles'=>$articles]);
+        return view('articles.index',compact(['articles']));
     }
 
     /**
@@ -32,6 +34,7 @@ class ArticleController extends Controller
     public function create()
     {
         //
+        return view('articles.new',['tags'=>$this->articleService->getallTags(),'article'=>$this->articleService->get(1)]);
     }
 
     /**
@@ -40,9 +43,16 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticleStoreRequest $request)
     {
         //
+        $validated=$request->validated();
+        if($validated){
+           $article=Article::create(request()->all);
+           $article->save();
+
+           redirect()->back()->with('message', 'IT WORKS!');
+        }
     }
 
     /**
