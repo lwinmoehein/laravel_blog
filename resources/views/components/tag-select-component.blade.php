@@ -3,11 +3,14 @@
   $selected_ids=[];
 @endphp
 
-@foreach($article->tags as $tag)
-  @php
+@if(isset($article))
+    @foreach($article->tags as $tag)
+    @php
     array_push($selected_ids,$tag->id);
-  @endphp
-@endforeach
+    @endphp
+    @endforeach
+@endif
+
 
 <select class="form-control selectpicker" name="tags[]" id="tags" multiple>
     @if(isset($article))

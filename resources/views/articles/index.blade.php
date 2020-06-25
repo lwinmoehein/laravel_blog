@@ -1,14 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="container">
-    <x-article-list-component :articles="$articles"/>
-  </div>
-  @if(session()->has('message'))
-  <div class="alert alert-success">
+@if(session()->has('message'))
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <a href = "#" class = "close" data-dismiss = "alert">
+        &times;
+     </a>
       {{ session()->get('message') }}
   </div>
 @endif
+  <div class="contaier">
+      <h1>List Of Available Articles</h1>
+  </div>
+  <div class="container">
+    <x-article-list-component :articles="$articles"/>
+  </div>
+
 @endsection
 
 @section('action-button')

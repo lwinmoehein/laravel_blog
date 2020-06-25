@@ -13,7 +13,7 @@ class ArticleStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,7 @@ class ArticleStoreRequest extends FormRequest
             //
             'title' => 'required|string|max:40',
             'body' => 'required|string|max:200',
-            'tags' => 'required|array|min:1'
+            'tags' => 'required|array|min:1',
         ];
     }
 }

@@ -34,7 +34,7 @@ class ArticleController extends Controller
     public function create()
     {
         //
-        return view('articles.new',['tags'=>$this->articleService->getallTags(),'article'=>$this->articleService->get(1)]);
+        return view('articles.new',['tags'=>$this->articleService->getallTags()]);
     }
 
     /**
@@ -45,14 +45,8 @@ class ArticleController extends Controller
      */
     public function store(ArticleStoreRequest $request)
     {
-        //
-        $validated=$request->validated();
-        if($validated){
-           $article=Article::create(request()->all);
-           $article->save();
-
-           redirect()->back()->with('message', 'IT WORKS!');
-        }
+           $article=$this->articleService->store($request);
+           return redirect('/')->with('message', 'New Article Added!');
     }
 
     /**
@@ -77,6 +71,9 @@ class ArticleController extends Controller
     public function edit($id)
     {
         //
+        $tags=$this->articleService->getallTags();
+        $article=$this->articleService->get($id);
+        return view('articles.new',compact('tags','article'));
     }
 
     /**
@@ -86,9 +83,12 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArticleStoreRequest $request, $id)
     {
         //
+         $this->articleService->update($request,$id);
+         return redirect('/')->with("message","article updated");
+
     }
 
     /**
@@ -100,5 +100,9 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
+       if($this->articleService->delete($id)){
+           return redirect()->back()->with('message','Article Deleted');
+       }
+
     }
 }

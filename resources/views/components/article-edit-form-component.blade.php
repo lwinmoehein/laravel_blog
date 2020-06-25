@@ -1,7 +1,9 @@
 <div>
-    <form action="{{route('articles.store')}}" method="post">
+    <!-- When there is no desire, all things are at peace. - Laozi -->
+</div><div>
+    <form action="{{route('articles.update',$article->id)}}" method="POST">
         @csrf
-        @method('put')
+        @method('patch')
         <div class="form-group row">
             <div class="col-xs-2">
                 <label for="title" >Article Title</label>
