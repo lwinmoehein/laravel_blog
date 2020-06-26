@@ -24,9 +24,10 @@ Route::get('articles/{id}/edit','ArticleController@edit')->name('articles.edit')
 Route::patch('articles/{id}','ArticleController@update')->name('articles.update');
 //show one
 Route::get('articles/{id}','ArticleController@show')->name('articles.show');
-//ddelete
+//delete
 Route::delete('articles/{id}','ArticleController@destroy')->name('articles.delete');
-
 
 Auth::routes();
 
+//search
+Route::get('search/articles', 'SearchController@userList')->name('articles.search');

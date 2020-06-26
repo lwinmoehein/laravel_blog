@@ -19,12 +19,13 @@ class ArticleController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         //
         $user=Auth::user();
 
         $articles=$this->articleService->getAll();
+
         return view('articles.index',compact(['articles']));
     }
 
