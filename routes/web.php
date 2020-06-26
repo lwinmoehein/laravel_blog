@@ -34,3 +34,4 @@ Route::get('search/articles', 'SearchController@userList')->name('articles.searc
 
 //article reply routes
 Route::put('replies','ReplyController@store')->name('replies.store');
+Route::delete('replies/{id}','ReplyController@destroy')->name('replies.delete');

@@ -19,8 +19,11 @@ class ReplyStorePolicy
     {
         //
     }
-    public function update(User $user,Reply $reply)
+    public function store(User $user)
     {
         return true;
+    }
+    public function delete(User $user,$reply){
+         return $user->id==$reply->user_id;
     }
 }

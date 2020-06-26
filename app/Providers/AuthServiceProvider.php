@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Policies\ArticlePolicy;
 use App\Policies\ReplyStorePolicy;
+use App\Article;
+use App\Reply;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
