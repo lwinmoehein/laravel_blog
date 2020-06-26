@@ -1,5 +1,5 @@
 @can('update',$article)
-<div class="row m-2">
+<div class="row m-2 container">
     <div class="col-s">
        <button type="button" class="btn ">
            <a href="{{route('articles.edit',$article->id)}}">Edit</a>

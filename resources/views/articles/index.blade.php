@@ -3,10 +3,9 @@
 @section('content')
 <x-message-notification-component/>
 <x-error-notification-component/>
-  <div class="contaier">
-      <h6>List Of Available Articles</h6>
-  </div>
+
   <div class="container">
+      <h3>List Of Articles</h3>
     <x-article-list-component :articles="$articles"/>
   </div>
 
