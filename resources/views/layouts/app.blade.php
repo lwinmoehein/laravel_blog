@@ -28,7 +28,7 @@
 <body>
     <div id="app">
         @include('layouts.main_nav')
-        <div class="justify-content-center p-3" >
+        <div class="container p-3" >
             @yield('content')
         </div>
     </div>

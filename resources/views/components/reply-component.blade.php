@@ -1,4 +1,4 @@
-<div>
+<div class="container alert alert-primary m-10 ">
     <a href="#">Comments <span class="badge">{{count($article->replies)}}</span></a><br>
     @foreach($article->replies as $reply)
          <h3>{{$reply->body}}</h3>

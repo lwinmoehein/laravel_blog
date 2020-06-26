@@ -5,6 +5,6 @@
         <h1>No articles found</h1>
      @endforelse
 </div>
-<div class="container">
+<div class="container justify-content-center">
     {{ $articles->links() }}
 </div>
