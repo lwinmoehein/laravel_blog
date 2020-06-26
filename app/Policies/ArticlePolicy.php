@@ -23,6 +23,6 @@ class ArticlePolicy
     }
     public function update(User $user,Article $article)
     {
-        return true;
+        return $user->id===$article->user_id;
     }
 }

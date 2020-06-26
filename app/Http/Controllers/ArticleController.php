@@ -74,10 +74,15 @@ class ArticleController extends Controller
     {
         //
         $user=Auth::user();
+        $article=Article::find($id);
+        if($user->can('update',$this->articleService->get($id))){
+            $tags=$this->articleService->getallTags();
+            $article=$this->articleService->get($id);
+            return view('articles.new',compact('tags','article'));
+        }else{
+            return redirect()->back()->with('message','you can only update your own post');
+        }
 
-        $tags=$this->articleService->getallTags();
-        $article=$this->articleService->get($id);
-        return view('articles.new',compact('tags','article'));
     }
 
     /**

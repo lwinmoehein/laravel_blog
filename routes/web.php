@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //home
+Route::get('/home', 'ArticleController@index')->name('articles.index');
 Route::get('/', 'ArticleController@index')->name('articles.index');
 Route::get('articles','ArticleController@index')->name('articles.index');
 //create new
@@ -29,4 +30,3 @@ Route::delete('articles/{id}','ArticleController@destroy')->name('articles.delet
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

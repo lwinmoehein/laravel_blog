@@ -1,14 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-@if(session()->has('message'))
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <a href = "#" class = "close" data-dismiss = "alert">
-        &times;
-     </a>
-      {{ session()->get('message') }}
-  </div>
-@endif
+<x-message-notification-component/>
+<x-error-notification-component/>
   <div class="contaier">
       <h1>List Of Available Articles</h1>
   </div>
