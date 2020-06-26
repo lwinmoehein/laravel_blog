@@ -109,9 +109,11 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
+       if(Auth::user()->can('delete',$this->articleService->get($id)))
        if($this->articleService->delete($id)){
            return redirect()->back()->with('message','Article Deleted');
        }
+       return redirect()->back()->with('message','not allowed to delete this article');
 
     }
 }
