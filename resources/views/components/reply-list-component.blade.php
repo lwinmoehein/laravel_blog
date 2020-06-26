@@ -1,4 +1,4 @@
-<div class="container">
+<div class="">
     <x-reply-component :article="$article"/>
 </div>
 
