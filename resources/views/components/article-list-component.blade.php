@@ -5,3 +5,4 @@
         <h1>No articles found</h1>
      @endforelse
 </div>
+{{ $articles->links() }}

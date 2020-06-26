@@ -28,9 +28,9 @@
 <body>
     <div id="app">
         @include('layouts.main_nav')
-        <main class="py-4 container mx-auto">
+        <div class="container py-4 container mx-auto " >
             @yield('content')
-        </main>
+        </div>
     </div>
 </body>
 </html>

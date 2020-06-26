@@ -16,7 +16,6 @@
 @auth
     <a href="{{route('articles.create')}}" class="mr-2">
         <span>Create New</span>
-        <span class="fa fa-plus"></span>
     </a>
     <a href="{{route('articles.search')}}" class="mr-2">
         <span>Search Articles</span>
