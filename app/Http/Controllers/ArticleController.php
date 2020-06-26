@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
+use App\Reply;
 use App\Http\Requests\ArticleStoreRequest;
 use App\Repositories\ArticleRepository;
 use App\Repositories\TagRepository;
@@ -22,6 +23,7 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         //
+
         $user=Auth::user();
 
         $articles=$this->articleService->getAll();

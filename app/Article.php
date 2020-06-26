@@ -24,4 +24,7 @@ class Article extends Model
     {
         return 'articles_index';
     }
+    public function replies(){
+        return $this->hasMany(Reply::class,'article_id');
+    }
 }

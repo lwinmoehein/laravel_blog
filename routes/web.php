@@ -29,5 +29,8 @@ Route::delete('articles/{id}','ArticleController@destroy')->name('articles.delet
 
 Auth::routes();
 
-//search
+//article search
 Route::get('search/articles', 'SearchController@userList')->name('articles.search');
+
+//article reply routes
+Route::put('replies','ReplyController@store')->name('replies.store');

@@ -1,5 +1,6 @@
 <div class="container alert alert-primary">
     <h1>{{$article->title}}</h1>
+    <span class="badge badge-secondary">{{$article->updated_at->diffForHumans()}}</span>
     <p>{{$article->body}}</p>
     <h3>tagged topics...</h3>
     <ul>

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Policies\ArticlePolicy;
+use App\Policies\ReplyStorePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -15,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
          Article::class => ArticlePolicy::class,
+         Reply::class=>ReplyStorePolicy::class,
     ];
 
     /**
