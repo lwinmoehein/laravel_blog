@@ -3,15 +3,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Article;
+use App\Repositories\ArticleRepository;
 use Illuminate\Http\Request;
 class SearchController extends Controller
 {
+    protected $articleRepository;
+
+    public function __construct(ArticleRepository $articleRepository)
+    {
+        $this->articleRepository=$articleRepository;
+    }
     public function userList(Request $request)
     {
 
         if($request->has('search')){
-            $articles = Article::search($request->search)
-                ->paginate(6);
+            $articles = $this->articleRepository->search($request);
+
         }else{
             $articles = null;
         }

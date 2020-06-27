@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Repositories\ReplyRepository;
 use App\Services\ReplyService;
 use App\Http\Requests\ReplyStoreRequest;
+
 class ReplyController extends Controller
 {
     //
@@ -13,6 +14,7 @@ class ReplyController extends Controller
     protected $replyRepository;
 
     public function __construct(ReplyRepository $replyRepository){
+
             $this->replyRepository=$replyRepository;
             $this->replyService=new ReplyService($replyRepository);
             $this->middleware('auth');
