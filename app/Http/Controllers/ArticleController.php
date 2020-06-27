@@ -13,66 +13,48 @@ use Illuminate\Support\Facades\Auth;
 class ArticleController extends Controller
 {
     protected $articleService;
+    protected $articleRepository;
 
+    //constructor
+    //args (article repo,tag repo)
     public function __construct(ArticleRepository $articleRepository,TagRepository $tagRepository)
     {
         $this->articleService=new ArticleService($articleRepository,$tagRepository);
+        $this->articleRepository=$articleRepository;
         $this->middleware('auth');
     }
 
+    //get all paginated articles
     public function index(Request $request)
     {
-        //
-
-        $user=Auth::user();
-
-        $articles=$this->articleService->getAll();
-
+        $articles=$this->articleRepository->all();
         return view('articles.index',compact(['articles']));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //get one article
+    public function show($id)
+    {
+        //
+        $article=$this->articleRepository->getArticle($id);
+        return view('articles.detail',['article'=>$article]);
+    }
+
+    //store an article
+    public function store(ArticleStoreRequest $request)
+    {
+        //
+        $article=$this->articleService->store($request);
+        return redirect('/')->with('message', 'New Article Added!');
+    }
+    //create new article (view)
     public function create()
     {
         //
         return view('articles.new',['tags'=>$this->articleService->getallTags()]);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(ArticleStoreRequest $request)
-    {
-           $article=$this->articleService->store($request);
-           return redirect('/')->with('message', 'New Article Added!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-        $article=$this->articleService->get($id);
-        return view('articles.detail',['article'=>$article]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //edit an article (view)
     public function edit($id)
     {
         //
@@ -88,13 +70,7 @@ class ArticleController extends Controller
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //update article data
     public function update(ArticleStoreRequest $request, $id)
     {
         //
@@ -103,12 +79,7 @@ class ArticleController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //delete an article
     public function destroy($id)
     {
         //

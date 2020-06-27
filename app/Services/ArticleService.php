@@ -17,13 +17,6 @@ class ArticleService
         $this->repository=$repository;
         $this->tagRepository=$tagRepository;
     }
-    public  function getAll(){
-        return $this->repository->all();
-    }
-
-    public function get($id){
-        return $this->repository->getArticle($id);
-    }
 
     public  function delete($id){
         return Article::destroy($id);

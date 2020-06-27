@@ -19,6 +19,7 @@ class CreateRepliesTable extends Migration
             $table->unsignedBigInteger('article_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
         });
     }
 
