@@ -11,7 +11,7 @@ class ArticleRepository
         return Article::paginate(5);
     }
 
-    public function getArticle($article_id)
+    public function get($article_id)
     {
         return Article::find($article_id);
     }

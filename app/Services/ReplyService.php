@@ -13,13 +13,6 @@ class ReplyService
     {
         $this->repository=$repository;
     }
-    public  function getAll(){
-        return $this->repository->all();
-    }
-
-    public function get($id){
-        return $this->repository->get($id);
-    }
 
     public  function delete($id){
         return Reply::destroy($id);
@@ -36,12 +29,5 @@ class ReplyService
          return $reply->update($request->only(['body']));
 
     }
-
-    public function getAllTags(){
-        return $this->tagRepository->all();
-    }
-
-
-
 
 }

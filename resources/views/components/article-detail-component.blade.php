@@ -10,5 +10,8 @@
         <li><x-tag-component :tag="$tag"/></li>
         @endforeach
     </ul>
+    <x-reply-list-component :article="$article"/>
+    <x-reply-form-component :article="$article"/>
+    <x-edit-buttons-component :article="$article"/>
 
 </div>

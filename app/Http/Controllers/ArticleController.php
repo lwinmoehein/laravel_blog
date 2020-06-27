@@ -3,24 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Article;
-use App\Reply;
 use App\Http\Requests\ArticleStoreRequest;
+
 use App\Repositories\ArticleRepository;
 use App\Repositories\TagRepository;
+use App\Repositories\UserRepository;
+
 use App\Services\ArticleService;
+
 use Illuminate\Support\Facades\Auth;
 class ArticleController extends Controller
 {
     protected $articleService;
     protected $articleRepository;
+    protected $tagRepository;
+    protected $userRepository;
 
     //constructor
     //args (article repo,tag repo)
-    public function __construct(ArticleRepository $articleRepository,TagRepository $tagRepository)
+    public function __construct(ArticleRepository $articleRepository,TagRepository $tagRepository,UserRepository $userRepository)
     {
-        $this->articleService=new ArticleService($articleRepository,$tagRepository);
+        $this->articleService=new ArticleService($articleRepository);
+
+        $this->userRepository=$userRepository;
         $this->articleRepository=$articleRepository;
+        $this->tagRepository=$tagRepository;
+
         $this->middleware('auth');
     }
 
@@ -35,7 +43,7 @@ class ArticleController extends Controller
     public function show($id)
     {
         //
-        $article=$this->articleRepository->getArticle($id);
+        $article=$this->articleRepository->get($id);
         return view('articles.detail',['article'=>$article]);
     }
 
@@ -50,7 +58,7 @@ class ArticleController extends Controller
     public function create()
     {
         //
-        return view('articles.new',['tags'=>$this->articleService->getallTags()]);
+        return view('articles.new',['tags'=>$this->tagRepository->all()]);
 
     }
 
@@ -58,11 +66,11 @@ class ArticleController extends Controller
     public function edit($id)
     {
         //
-        $user=Auth::user();
-        $article=Article::find($id);
-        if($user->can('update',$this->articleService->get($id))){
-            $tags=$this->articleService->getallTags();
-            $article=$this->articleService->get($id);
+        $user=$this->userRepository->getCurrentUser();
+        $article=$this->articleRepository->get($id);
+        if($user->can('update',$this->articleRepository->get($id))){
+            $tags=$this->tagRepository->all();
+            $article=$this->articleRepository->get($id);
             return view('articles.new',compact('tags','article'));
         }else{
             return redirect()->back()->with('message','you can only update your own post');
@@ -83,7 +91,7 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
-       if(Auth::user()->can('delete',$this->articleService->get($id)))
+       if(Auth::user()->can('delete',$this->articleRepository->get($id)))
        if($this->articleService->delete($id)){
            return redirect('/')->with('message','Article Deleted');
        }
