@@ -37228,7 +37228,43 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-$(document).ready(function () {});
+$('#submit').on('click', function (e) {
+  e.preventDefault();
+  $.ajax({
+    url: '/replies/create',
+    type: 'PUT',
+    headers: {
+      'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
+    },
+    success: function success(result) {
+      document.getElementById('reply-list').innerHTML = result;
+    },
+    data: {
+      article_id: $('#article_id').val(),
+      body: $('#body').val()
+    },
+    error: function error(result) {
+      alert(result);
+    }
+  });
+});
+$('#reply-delete').on('click', function (e) {
+  e.preventDefault();
+  $.ajax({
+    url: '/replies/' + $('#reply-id').val(),
+    type: 'DELETE',
+    headers: {
+      'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
+    },
+    success: function success(result) {
+      document.getElementById('reply-list').innerHTML = result;
+    },
+    data: {},
+    error: function error(result) {
+      alert(result);
+    }
+  });
+});
 
 /***/ }),
 

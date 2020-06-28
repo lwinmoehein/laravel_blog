@@ -23,4 +23,8 @@ class ReplyRepository
     public function get($id){
         return Reply::find($id);
     }
+
+    public function getRelatedReplies($id){
+        return Reply::find($id)->article->replies;
+    }
 }

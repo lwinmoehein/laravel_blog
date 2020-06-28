@@ -1,5 +1,5 @@
 <div class="container m-3 p-4">
-    <form action="{{route('replies.store')}}" method="post">
+    <form action="{{route('replies.store')}}" method="post" id="reply_form">
         @csrf
         @method('put')
         <div class="for-group row">
@@ -12,10 +12,10 @@
                 @endif
             </div>
         </div>
-        <input name="article_id" type="hidden" value="{{$article->id}}">
+        <input id="article_id" name="article_id" type="hidden" value="{{$article->id}}">
         <div class="for-group row mt-4">
             <div class="col-xs-2">
-                <input type="submit" class="btn btn-primary" value="Post reply">
+                <input type="submit" class="btn btn-primary" value="Post reply" id="submit">
             </div>
 
         </div>

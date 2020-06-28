@@ -33,5 +33,5 @@ Auth::routes();
 Route::get('search/articles', 'SearchController@userList')->name('articles.search');
 
 //article reply routes
-Route::put('replies','ReplyController@store')->name('replies.store');
+Route::put('replies/create','ReplyController@store')->name('replies.store');
 Route::delete('replies/{id}','ReplyController@destroy')->name('replies.delete');
