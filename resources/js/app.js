@@ -21,18 +21,22 @@ $('#submit').on('click',function(e){
     });
 });
 
-$('#reply-delete').on('click',function(e){
-    e.preventDefault();
 
+// $("input:button").click(function()
+// {
+
+
+// });
+$('#reply-list').on('click','.reply-delete-btn',function() {
     $.ajax({
-        url: '/replies/'+$('#reply-id').val(),
+        url: '/replies/delete',
         type: 'DELETE',
         headers: {'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')},
         success: function(result) {
             document.getElementById('reply-list').innerHTML = result;
         },
         data:{
-
+            id:$(this).attr('id'),
         },
         error:function(result){
             alert(result);

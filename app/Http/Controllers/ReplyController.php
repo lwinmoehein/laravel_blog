@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Repositories\ReplyRepository;
 use App\Services\ReplyService;
 use App\Article;
+use App\Http\Requests\ReplyDeleteRequest;
 use App\Http\Requests\ReplyStoreRequest;
 
 class ReplyController extends Controller
@@ -31,11 +33,10 @@ class ReplyController extends Controller
         }
     }
     //delete a reply from model
-    public function destroy($id){
-
-        $article=$this->replyRepository->get($id)->article;
-        if(Auth::user()->can('delete',$this->replyRepository->get($id))){
-            if($this->replyService->delete($id)){
+    public function destroy(ReplyDeleteRequest $request){
+        $article=$this->replyRepository->get($request->id)->article;
+        if(Auth::user()->can('delete',$this->replyRepository->get($request->id))){
+            if($this->replyService->delete($request->id)){
                 return view('components.reply-list-component',['article'=>$article]);
             }
         }

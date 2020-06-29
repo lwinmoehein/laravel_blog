@@ -37247,11 +37247,13 @@ $('#submit').on('click', function (e) {
       alert(result);
     }
   });
-});
-$('#reply-delete').on('click', function (e) {
-  e.preventDefault();
+}); // $("input:button").click(function()
+// {
+// });
+
+$('#reply-list').on('click', '.reply-delete-btn', function () {
   $.ajax({
-    url: '/replies/' + $('#reply-id').val(),
+    url: '/replies/delete',
     type: 'DELETE',
     headers: {
       'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
@@ -37259,7 +37261,9 @@ $('#reply-delete').on('click', function (e) {
     success: function success(result) {
       document.getElementById('reply-list').innerHTML = result;
     },
-    data: {},
+    data: {
+      id: $(this).attr('id')
+    },
     error: function error(result) {
       alert(result);
     }
