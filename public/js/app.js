@@ -37269,7 +37269,8 @@ $('#reply-list').on('click', '.reply-delete-btn', function () {
   });
 }); //edit comment
 
-$('#reply-list').on('click', '.reply-edit-btn', function () {
+$('#reply-list').on('click', '.reply-edit-btn', function (e) {
+  e.preventDefault;
   var reply_id = $(this).attr('id');
   $(this).siblings('.comment-edit-form').toggle();
   $(this).siblings('.comment-edit-form').find('.update').click(function () {
@@ -37286,6 +37287,34 @@ $('#reply-list').on('click', '.reply-edit-btn', function () {
       data: {
         id: reply_id,
         body: edited_reply_body
+      },
+      error: function error(result) {
+        alert(result);
+      }
+    });
+  });
+}); //reply to a comment
+
+$('#reply-list').on('click', '.reply-reply-btn', function (e) {
+  e.preventDefault;
+  var reply_id = $(this).attr('id');
+  var article_id = $(this).siblings('.article_id').attr('value');
+  $(this).siblings('.comment-reply-form').toggle();
+  $(this).siblings('.comment-reply-form').find('.reply').click(function () {
+    var reply_body = $(this).siblings('.reply-reply-textarea').val();
+    $.ajax({
+      url: '/replies/nested',
+      type: 'PUT',
+      headers: {
+        'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
+      },
+      success: function success(result) {
+        document.getElementById('reply-list').innerHTML = result;
+      },
+      data: {
+        id: reply_id,
+        body: reply_body,
+        article_id: article_id
       },
       error: function error(result) {
         alert(result);

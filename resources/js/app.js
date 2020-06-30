@@ -43,13 +43,15 @@ $('#reply-list').on('click','.reply-delete-btn',function() {
 
 
 //edit comment
-$('#reply-list').on('click','.reply-edit-btn',function() {
+$('#reply-list').on('click','.reply-edit-btn',function(e) {
+    e.preventDefault;
 
     let reply_id=$(this).attr('id');
 
     $(this).siblings('.comment-edit-form').toggle();
     $(this).siblings('.comment-edit-form').find('.update').click(function(){
         let edited_reply_body=$(this).siblings('.reply-edit-textarea').val();
+
 
         $.ajax({
                 url: '/replies',
@@ -66,6 +68,42 @@ $('#reply-list').on('click','.reply-edit-btn',function() {
                     alert(result);
                  }
         });
+    });
+
+
+
+});
+
+//reply to a comment
+$('#reply-list').on('click','.reply-reply-btn',function(e) {
+    e.preventDefault;
+
+    let reply_id=$(this).attr('id');
+    let article_id=$(this).siblings('.article_id').attr('value');
+
+
+    $(this).siblings('.comment-reply-form').toggle();
+    $(this).siblings('.comment-reply-form').find('.reply').click(function(){
+        let reply_body=$(this).siblings('.reply-reply-textarea').val();
+
+        $.ajax({
+            url: '/replies/nested',
+            type: 'PUT',
+            headers: {'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')},
+            success: function(result) {
+                document.getElementById('reply-list').innerHTML = result;
+            },
+            data:{
+                id:reply_id,
+                body:reply_body,
+                article_id:article_id
+            },
+            error:function(result){
+                alert(result);
+             }
+        });
+
+
     });
 
 

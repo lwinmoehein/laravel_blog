@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reply extends Model
 {
     //
-    protected $fillable = ['body', 'article_id','user_id'];
+    protected $fillable = ['body', 'article_id','user_id','parent_id'];
 
     public function article(){
        return $this->belongsTo(Article::class);
@@ -19,6 +19,9 @@ class Reply extends Model
     public function replies()
     {
         return $this->hasMany('App\Reply', 'parent_id');
+    }
+    public function parent(){
+        return $this->belongsTo('App\Reply','parent_id');
     }
 
 

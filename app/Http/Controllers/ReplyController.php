@@ -32,7 +32,14 @@ class ReplyController extends Controller
         }
         return "error";
     }
-
+    //store a nested reply
+    public function storenested(ReplyStoreRequest $request){
+        $reply=$this->replyService->storenested($request);
+        if($reply){
+            return view('components.reply-list-component',['article'=>$reply->article]);
+        }
+        return "error";
+    }
      //store a reply
      public function update(ReplyUpdateRequest $request){
 

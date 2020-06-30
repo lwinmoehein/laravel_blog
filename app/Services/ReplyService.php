@@ -25,6 +25,12 @@ class ReplyService
         return $reply;
     }
 
+    public function storenested(ReplyStoreRequest $request){
+        $reply= new Reply($request->validated());
+        $reply->fill(['user_id'=>auth()->id(),'parent_id'=>$request->id])->save();
+        return $reply;
+    }
+
     public function update(ReplyUpdateRequest $request){
          $reply= Reply::find($request->id);
          $reply->update($request->only(['body']));
