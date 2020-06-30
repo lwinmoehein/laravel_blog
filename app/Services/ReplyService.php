@@ -1,8 +1,9 @@
 <?php
 namespace App\Services;
-use App\Article;
+
 use App\Reply;
 use App\Http\Requests\ReplyStoreRequest;
+use App\Http\Requests\ReplyUpdateRequest;
 use App\Repositories\ReplyRepository;
 
 class ReplyService
@@ -24,9 +25,10 @@ class ReplyService
         return $reply;
     }
 
-    public function update(ReplyStoreRequest $request,$id){
-         $reply= Reply::find($id);
-         return $reply->update($request->only(['body']));
+    public function update(ReplyUpdateRequest $request){
+         $reply= Reply::find($request->id);
+         $reply->update($request->only(['body']));
+         return $reply;
 
     }
 

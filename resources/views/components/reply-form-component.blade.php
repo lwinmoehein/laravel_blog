@@ -13,9 +13,9 @@
             </div>
         </div>
         <input id="article_id" name="article_id" type="hidden" value="{{$article->id}}">
-        <div class="for-group row mt-4">
+        <div class="form-group row mt-4">
             <div class="col-xs-2">
-                <input type="submit" class="btn btn-primary" value="Post reply" id="submit">
+                <input type="submit" class="btn btn-primary" value="Post reply" id="comment">
             </div>
 
         </div>

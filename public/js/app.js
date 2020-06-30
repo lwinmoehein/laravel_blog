@@ -37227,8 +37227,9 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-$('#submit').on('click', function (e) {
+window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"); //create new comment
+
+$('#comment').on('click', function (e) {
   e.preventDefault();
   $.ajax({
     url: '/replies/create',
@@ -37247,9 +37248,7 @@ $('#submit').on('click', function (e) {
       alert(result);
     }
   });
-}); // $("input:button").click(function()
-// {
-// });
+}); //delete comment
 
 $('#reply-list').on('click', '.reply-delete-btn', function () {
   $.ajax({
@@ -37267,6 +37266,31 @@ $('#reply-list').on('click', '.reply-delete-btn', function () {
     error: function error(result) {
       alert(result);
     }
+  });
+}); //edit comment
+
+$('#reply-list').on('click', '.reply-edit-btn', function () {
+  var reply_id = $(this).attr('id');
+  $(this).siblings('.comment-edit-form').toggle();
+  $(this).siblings('.comment-edit-form').find('.update').click(function () {
+    var edited_reply_body = $(this).siblings('.reply-edit-textarea').val();
+    $.ajax({
+      url: '/replies',
+      type: 'PATCH',
+      headers: {
+        'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
+      },
+      success: function success(result) {
+        $('#reply-list').html(result);
+      },
+      data: {
+        id: reply_id,
+        body: edited_reply_body
+      },
+      error: function error(result) {
+        alert(result);
+      }
+    });
   });
 });
 
