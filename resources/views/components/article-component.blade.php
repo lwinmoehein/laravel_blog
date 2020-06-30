@@ -13,6 +13,9 @@
                 <span class="badge badge-success">{{$tag->name}}</span>
             @endforeach
         </div>
+        @foreach($article->images as $image)
+          <img width="100px" height="100px" src="{{$image->url}}" alt="{{$image->user_id}}">
+        @endforeach
     </div>
     </div>
 </div>

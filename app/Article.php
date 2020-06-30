@@ -27,4 +27,9 @@ class Article extends Model
     public function replies(){
         return $this->hasMany(Reply::class,'article_id')->where('parent_id','=',null);
     }
+
+    public function images()
+    {
+        return $this->morphMany('App\Image', 'imageable');
+    }
 }

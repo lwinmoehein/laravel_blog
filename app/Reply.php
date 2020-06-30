@@ -24,5 +24,10 @@ class Reply extends Model
         return $this->belongsTo('App\Reply','parent_id');
     }
 
+    public function images()
+    {
+        return $this->morphMany('App\Image', 'imageable');
+    }
+
 
 }
