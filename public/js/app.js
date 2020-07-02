@@ -37227,7 +37227,13 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"); //create new comment
+window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"); //upload image
+
+function uploadImage() {
+  $image = $('#imgInp').val();
+  return "hola";
+} //create new comment
+
 
 $('#comment').on('click', function (e) {
   e.preventDefault();

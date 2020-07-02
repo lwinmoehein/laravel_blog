@@ -10,65 +10,26 @@ use App\Services\ImageService;
 class ImageController extends Controller
 {
 
-    protected $repository;
-    protected $userRepository;
     protected $service;
-    public function __construct(ImageRepository $imageRepository,UserRepository $userRepository)
+    public function __construct()
     {
-           $this->repository=$imageRepository;
-           $this->userRepository=$userRepository;
-
-           $this->service=new ImageService($imageRepository);
+           $this->service=new ImageService();
            $this->middleware('auth');
     }
-    public function index()
-    {
-        //
-    }
-
-
-    public function create()
-    {
-        //
-    }
-
 
     public function store(ImageStoreRequest $request)
     {
-               $user=$this->userRepository->getCurrentUser();
-
-               $image=$this->service->store($request);
+               $image=$request->file('image')->store('public/images');
                if($image){
-                   return "ok";
+                   return $image;
                }
-               return "nope";
+               return 'error';
+
 
     }
-
-    public function new(Request $request){
+    public function new(){
         return view('images.new');
     }
 
 
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
-    public function destroy($id)
-    {
-        //
-    }
 }

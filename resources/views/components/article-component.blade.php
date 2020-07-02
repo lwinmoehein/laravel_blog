@@ -14,7 +14,7 @@
             @endforeach
         </div>
         @foreach($article->images as $image)
-          <img width="100px" height="100px" src="{{$image->url}}" alt="{{$image->user_id}}">
+              <img width="100px" height="100px" src="{{url(str_replace("public","storage",$image->url))}}">
         @endforeach
     </div>
     </div>

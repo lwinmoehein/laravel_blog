@@ -39,5 +39,4 @@ Route::patch('replies','ReplyController@update')->name('replies.update');
 Route::put('replies/nested','ReplyController@storenested')->name('replies.nested');
 
 //image routes
-Route::put('images/store','ImageController@store')->name('images.store');
-Route::get('images/create', 'ImageController@new')->name('images.new');
+Route::post('images/store','ImageController@store')->name('images.store');

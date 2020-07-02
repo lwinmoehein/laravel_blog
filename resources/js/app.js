@@ -1,6 +1,12 @@
 require('./bootstrap');
 window.$ = window.jQuery = require('jquery');
 
+//upload image
+function uploadImage(){
+    $image=$('#imgInp').val();
+    return "hola";
+}
+
 //create new comment
 $('#comment').on('click',function(e){
     e.preventDefault();
@@ -105,8 +111,6 @@ $('#reply-list').on('click','.reply-reply-btn',function(e) {
 
 
     });
-
-
 
 });
 

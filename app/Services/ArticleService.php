@@ -3,7 +3,7 @@ namespace App\Services;
 use App\Article;
 use App\Repositories\ArticleRepository;
 use App\Http\Requests\ArticleStoreRequest;
-
+use App\Image;
 class ArticleService
 {
     protected $repository;
@@ -21,6 +21,7 @@ class ArticleService
         $article= new Article($request->validated());
         $article->fill(['user_id'=>auth()->id()])->save();
         $article->tags()->attach($request['tags']);
+        $article->images()->save(new Image(['url'=>$request->image_url]));
         return $article;
     }
 

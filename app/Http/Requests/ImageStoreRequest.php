@@ -17,8 +17,7 @@ class ImageStoreRequest extends FormRequest
     {
         return [
             //
-            'image'=>'required|max:2000|mimes:jpeg,png',
-            'imageable_id'=>'required|integer'
+
         ];
     }
 }
