@@ -38,6 +38,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     function articles(){
-        return $this->hasMany(App\Article::class);
+        return $this->hasMany(Article::class);
+    }
+    function replies(){
+        return $this->hasMany(Reply::class);
+    }
+    public function images()
+    {
+        return $this->morphMany('App\Image', 'imageable');
     }
 }

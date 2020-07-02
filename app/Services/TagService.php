@@ -11,13 +11,6 @@ class tagService
     {
         $this->repository=$repository;
     }
-    public  function getAll(){
-        return $this->repository->all();
-    }
-
-    public function get($id){
-        return $this->repository->getTag($id);
-    }
 
     public  function delete($id){
         return Tag::destroy($id);

@@ -3,16 +3,21 @@
 namespace App\Repositories;
 
 use App\Article;
+use Symfony\Component\HttpFoundation\Request;
 
 class ArticleRepository
 {
     public function all()
     {
-        return Article::all();
+        return Article::paginate(5);
     }
 
-    public function getArticle($article_id)
+    public function get($article_id)
     {
         return Article::find($article_id);
+    }
+
+    public function search(Request $request){
+        return Article::search($request->search)->paginate(10);
     }
 }
