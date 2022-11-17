@@ -12,10 +12,10 @@
 
 @section('action-button')
 @auth
-    <a href="{{route('articles.create')}}" class="mr-2">
+    <a href="{{route('articles.create')}}" class="mr-2 text-white">
         <span>Create New</span>
     </a>
-    <a href="{{route('articles.search')}}" class="mr-2">
+    <a href="{{route('articles.search')}}" class="mr-2 text-white">
         <span>Search Articles</span>
     </a>
 @endauth

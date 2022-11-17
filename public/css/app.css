@@ -10953,3 +10953,12 @@ a.text-dark:focus {
   width: 100%;
 }
 
+.nav-link {
+  color: white !important;
+  font-weight: bolder;
+}
+
+.navbar-toggler-icon {
+  color: white !important;
+}
+

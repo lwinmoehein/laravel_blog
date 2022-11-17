@@ -3,13 +3,13 @@
         <x-image-upload-form-component/>
 
      </div>
-     <form action="{{route('articles.store')}}" method="post" id="newarticle" class="ml-5">
-        <form  class="ml-5">
+     <form action="{{route('articles.store')}}" method="post" id="newarticle" class="">
+        <form  class="">
         @csrf
         @method('put')
 
         <div class="form-group row">
-            <div class="col-xs-2">
+            <div class="col-12 col-md-6">
                 <label for="title" >Article Title</label>
                 @if(isset($article))
                   <input class="form-control" type="text" name="title" value="{{$article->title}}" >
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="for-group row">
-            <div class="col-xs-2">
+            <div class="col-12 col-md-6">
                 <label for="title">Article body</label>
                 @if(isset($article))
                      <textarea class="form-control" name="body" id="body" cols="30" rows="5">{{$article->body}}</textarea>
@@ -35,7 +35,7 @@
                 </div>
         </div>
         <div class="for-group row">
-            <div class="col-xs-2">
+            <div class="col-12 col-md-6">
                 <label for="title">Article tags</label>
                 @if(isset($article))
                   <x-tag-select-component :tags="$tags" :article="$article"/>
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="for-group row mt-4">
-            <div class="col-xs-2">
+            <div class="col-12 col-md-6">
                 <button id="postarticle"  class="btn btn-primary" > PostArticle</button>
             </div>
 

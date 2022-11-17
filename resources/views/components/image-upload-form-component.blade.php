@@ -1,7 +1,7 @@
 
-<div class="container">
+<div class="row">
 
-        <div class="col-md-6">
+        <div class="col-12 col-md-6">
             <div class="form-group">
                 <label>Upload Image</label>
                 <div class="input-group">
@@ -13,7 +13,6 @@
                     <input type="text" class="form-control" readonly>
                 </div>
                 <img id='img-upload'/>
-{{--                <button  id="upload" >Upload</button>--}}
             </div>
         </div>
 
