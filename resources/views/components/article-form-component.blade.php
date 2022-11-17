@@ -62,7 +62,6 @@
                 e.preventDefault();
 
                 let articleuploader=function create(image_url){
-                    alert(image_url);
                     $('#image_url').val(image_url);
                     $('#newarticle').submit();
                 }
