@@ -1,28 +1,16 @@
 <?php
 namespace App\Services;
 use App\Article;
-use App\User;
 use App\Repositories\ArticleRepository;
-use App\Repositories\TagRepository;
 use App\Http\Requests\ArticleStoreRequest;
-use Illuminate\Support\Facades\Auth;
-
+use App\Image;
 class ArticleService
 {
     protected $repository;
-    protected $tagRepository;
 
-    public function __construct(ArticleRepository $repository,TagRepository $tagRepository)
+    public function __construct(ArticleRepository $repository)
     {
         $this->repository=$repository;
-        $this->tagRepository=$tagRepository;
-    }
-    public  function getAll(){
-        return $this->repository->all();
-    }
-
-    public function get($id){
-        return $this->repository->getArticle($id);
     }
 
     public  function delete($id){
@@ -33,6 +21,7 @@ class ArticleService
         $article= new Article($request->validated());
         $article->fill(['user_id'=>auth()->id()])->save();
         $article->tags()->attach($request['tags']);
+        $article->images()->save(new Image(['url'=>$request->image_url]));
         return $article;
     }
 
@@ -42,12 +31,5 @@ class ArticleService
          return $article->tags()->sync($request['tags']);
 
     }
-
-    public function getAllTags(){
-        return $this->tagRepository->all();
-    }
-
-
-
 
 }
