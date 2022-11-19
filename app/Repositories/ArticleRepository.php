@@ -14,7 +14,7 @@ class ArticleRepository
 
     public function get($article_id)
     {
-        return Article::find($article_id);
+        return Article::findOrFail($article_id);
     }
 
     public function search(Request $request){

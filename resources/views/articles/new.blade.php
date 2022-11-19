@@ -12,7 +12,7 @@
 @section('content')
 <x-error-notification-component/>
 
-<div class="container">
+<div>
     @if(isset($article))
         <x-article-edit-form-component :tags="$tags" :article="$article"/>
     @else
