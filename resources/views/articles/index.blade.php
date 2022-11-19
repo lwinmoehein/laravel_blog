@@ -4,7 +4,7 @@
 <x-message-notification-component/>
 <x-error-notification-component/>
 
-  <div class="container" >
+  <div>
     <x-article-list-component :articles="$articles"/>
   </div>
 

@@ -1,4 +1,4 @@
-<div class="container">
+<div>
      @forelse ($articles as $article)
         <x-article-component :article="$article"/>
      @empty
