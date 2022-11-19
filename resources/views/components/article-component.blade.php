@@ -1,4 +1,4 @@
-<div class="container alert alert-secondary p-4">
+<div class="container alert alert-secondary p-1 p-md-4 px-0">
     <div class="row p-2">
         <div class="col-12">
             <div class="d-flex justify-content-between">
@@ -19,7 +19,7 @@
                 @endif
 
             </div>
-            <p>{{ $article->body }}</p>
+            <p>{{ $article->read_more_description }}</p>
             @foreach ($article->images as $image)
                 <img width="100px" height="100px" src="{{ url(str_replace('public', 'storage', $image->url)) }}">
             @endforeach
