@@ -6,7 +6,7 @@
                         <div class="row">
                             <div class="col-8 col-md-8 w-100 pl-0">
                                 <input type="text" name="search" class="form-control col"
-                                    placeholder="Enter User Name or Email For Search" value="{{ old('search') }}">
+                                    placeholder="Enter Article Name" value="{{ old('search') }}">
 
                             </div>
                             <div class="col-4 col-md-4 px-1">
