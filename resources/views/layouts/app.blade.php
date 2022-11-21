@@ -29,7 +29,6 @@
 <body  class="alert alert-primary h-100">
     <div id="app">
         @include('layouts.main_nav')
-
         <div class="container mt-5 p-0 pt-3 p-md-3" >
             @yield('content')
         </div>

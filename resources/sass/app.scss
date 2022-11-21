@@ -37,3 +37,20 @@
 .navbar-toggler-icon {
     color: white !important;
 }
+.nav-link{
+    background-color: #1f6fb2;
+    border-radius: 5px;
+}
+.dropdown-menu{
+    top: 40px !important;
+    min-height: 100px;
+    width: 100% !important;
+    min-width: auto !important;
+    background-color: #1f6fb2;
+}
+.dropdown-menu>a{
+    color: white;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+

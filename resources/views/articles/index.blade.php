@@ -12,11 +12,14 @@
 
 @section('action-button')
 @auth
-    <a href="{{route('articles.create')}}" class="mr-2 text-white">
-        <span>Create New</span>
+    <a href="{{route('articles.index')}}" class="mr-0 mr-md-2 mt-2 text-white w-100 nav-link px-3 py-1">
+        <span>Home</span>
     </a>
-    <a href="{{route('articles.search')}}" class="mr-2 text-white">
-        <span>Search Articles</span>
+    <a href="{{route('articles.create')}}" class="mr-0 mr-md-2 mt-2 text-white w-100 nav-link px-3 py-1">
+        <span>New</span>
+    </a>
+    <a href="{{route('articles.search')}}" class="mr-0 mr-md-2 mt-2 text-white w-100 nav-link px-3 py-1">
+        <span>Search </span>
     </a>
 @endauth
 @endsection
