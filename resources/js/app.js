@@ -1,4 +1,5 @@
 require('./bootstrap');
+const alert = require("bootstrap/js/src/alert");
 window.$ = window.jQuery = require('jquery');
 
 //upload image
@@ -30,18 +31,19 @@ $('#comment').on('click',function(e){
 
 //delete comment
 $('#reply-list').on('click','.reply-delete-btn',function() {
+    console.log($(this).attr('id'));
     $.ajax({
-        url: '/replies/delete',
+        url: '/api/replies/delete',
         type: 'DELETE',
         headers: {'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')},
         success: function(result) {
-            document.getElementById('reply-list').innerHTML = result;
+            console.log(result)
         },
         data:{
             id:$(this).attr('id'),
         },
         error:function(result){
-            alert(result);
+            console.log(result);
          }
     });
 });

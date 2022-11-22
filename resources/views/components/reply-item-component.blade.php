@@ -1,5 +1,5 @@
 <div class="my-3 reply-item">
-    <p class="mb-0"><span class="text-primary">{{$reply->user->name}}</span>
+    <p class="mb-0"><span class="text-primary font-weight-bold">{{$reply->user->name}}</span>
     </p>
     <p   class="reply-body mb-0">{{$reply->body}}</p>
 

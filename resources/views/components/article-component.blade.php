@@ -19,7 +19,7 @@
                 @endif
 
             </div>
-            <p>{{ $article->read_more_description }}</p>
+            <pre><code class="language-php">{{ $article->read_more_description }}</code></pre>
             @foreach ($article->images as $image)
                 <img width="100px" height="100px" src="{{ url(str_replace('public', 'storage', $image->url)) }}">
             @endforeach
