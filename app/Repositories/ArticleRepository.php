@@ -9,7 +9,7 @@ class ArticleRepository
 {
     public function all()
     {
-        return Article::paginate(5);
+        return Article::orderBy('created_at','desc')->paginate(5);
     }
 
     public function get($article_id)
