@@ -1,11 +1,11 @@
 <div class="">
     <h1>{{$article->title}}</h1>
-        <span class="badge badge-secondary">{{$article->updated_at->diffForHumans()}}</span>
+        <span class="text-primary">{{$article->updated_at->diffForHumans()}}</span>
         <span>posted by </span>
         <span class="badge badge-primary">{{$article->user->name}}</span>
-    <p>{{$article->body}}</p>
-    <h3>tagged topics...</h3>
-    <ul>
+    <p class="mt-3">{{$article->body}}</p>
+    <p class="font-weight-bold mt-3" >tagged topics :</p>
+    <ul class="mt-0">
         @foreach($article->tags as $tag)
         <li><x-tag-component :tag="$tag"/></li>
         @endforeach
