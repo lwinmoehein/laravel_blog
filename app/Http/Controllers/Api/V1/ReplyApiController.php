@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use F9Web\ApiResponseHelpers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Repositories\ReplyRepository;
@@ -15,6 +16,8 @@ use App\Http\Controllers\Controller;
 class ReplyApiController extends Controller
 {
     //
+    use ApiResponseHelpers;
+
     protected $replyService;
     protected $replyRepository;
 
@@ -26,17 +29,23 @@ class ReplyApiController extends Controller
     public function store(ReplyStoreRequest $request){
         $reply=$this->replyService->store($request);
         if($reply){
-            return view('components.reply-list-component',['article'=>$reply->article]);
+            return $this->respondCreated([
+                "data"=>$reply
+            ]);
         }
-        return "error";
+        return $this->respondError("Store Reply Failed");
+
     }
     //store a nested reply
     public function storenested(ReplyStoreRequest $request){
         $reply=$this->replyService->storenested($request);
         if($reply){
-            return view('components.reply-list-component',['article'=>$reply->article]);
+            return $this->respondCreated([
+                "data"=>$reply
+            ]);
         }
-        return "error";
+        return $this->respondError("Store Reply Failed");
+
     }
     //store a reply
     public function update(ReplyUpdateRequest $request){
@@ -45,12 +54,12 @@ class ReplyApiController extends Controller
 
             $reply=$this->replyService->update($request);
             if($reply){
-                return view('components.reply-list-component',['article'=>$reply->article]);
+                return $this->respondWithSuccess();
             }
 
         }
 
-        return "error";
+        return $this->respondError("Update Failed");
     }
 
     //delete a reply from model
@@ -59,12 +68,11 @@ class ReplyApiController extends Controller
 
         if(Auth::user()->can('delete',$this->replyRepository->get($request->id))){
             if($this->replyService->delete($request->id)){
-                return response()->json([
-                    "message"=>"success"
-                ]);
+                return $this->respondWithSuccess();
             }
         }
-        return "error";
+        return $this->respondError("Delete Failed");
+
 
     }
 

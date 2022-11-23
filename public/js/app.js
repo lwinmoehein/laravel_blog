@@ -37641,42 +37641,25 @@ function uploadImage() {
 
 $('#comment').on('click', function (e) {
   e.preventDefault();
-  $.ajax({
-    url: '/replies/create',
-    type: 'PUT',
-    headers: {
-      'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
-    },
-    success: function success(result) {
-      document.getElementById('reply-list').innerHTML = result;
-    },
-    data: {
+  axios("/api/replies/create", {
+    method: "PUT",
+    params: {
       article_id: $('#article_id').val(),
       body: $('#body').val()
-    },
-    error: function error(result) {
-      alert(result);
     }
+  }).then(function (res) {
+    window.location.reload();
   });
 }); //delete comment
 
 $('#reply-list').on('click', '.reply-delete-btn', function () {
-  console.log($(this).attr('id'));
-  $.ajax({
-    url: '/api/replies/delete',
-    type: 'DELETE',
-    headers: {
-      'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
-    },
-    success: function success(result) {
-      console.log(result);
-    },
-    data: {
+  axios("/api/replies/delete", {
+    method: "DELETE",
+    params: {
       id: $(this).attr('id')
-    },
-    error: function error(result) {
-      console.log(result);
     }
+  }).then(function (res) {
+    window.location.reload();
   });
 }); //edit comment
 
@@ -37686,22 +37669,14 @@ $('#reply-list').on('click', '.reply-edit-btn', function (e) {
   $(this).siblings('.comment-edit-form').toggle();
   $(this).siblings('.comment-edit-form').find('.update').click(function () {
     var edited_reply_body = $(this).siblings('.reply-edit-textarea').val();
-    $.ajax({
-      url: '/replies',
-      type: 'PATCH',
-      headers: {
-        'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
-      },
-      success: function success(result) {
-        $('#reply-list').html(result);
-      },
-      data: {
+    axios("/api/replies", {
+      method: "PATCH",
+      params: {
         id: reply_id,
         body: edited_reply_body
-      },
-      error: function error(result) {
-        alert(result);
       }
+    }).then(function (res) {
+      window.location.reload();
     });
   });
 }); //reply to a comment
@@ -37713,23 +37688,15 @@ $('#reply-list').on('click', '.reply-reply-btn', function (e) {
   $(this).siblings('.comment-reply-form').toggle();
   $(this).siblings('.comment-reply-form').find('.reply').click(function () {
     var reply_body = $(this).siblings('.reply-reply-textarea').val();
-    $.ajax({
-      url: '/replies/nested',
-      type: 'PUT',
-      headers: {
-        'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
-      },
-      success: function success(result) {
-        document.getElementById('reply-list').innerHTML = result;
-      },
-      data: {
+    axios("/api/replies/nested", {
+      method: "PUT",
+      params: {
         id: reply_id,
         body: reply_body,
         article_id: article_id
-      },
-      error: function error(result) {
-        alert(result);
       }
+    }).then(function (res) {
+      window.location.reload();
     });
   });
 });
@@ -37765,6 +37732,7 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.withCredentials = true;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
