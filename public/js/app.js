@@ -37666,7 +37666,8 @@ $('#reply-list').on('click', '.reply-delete-btn', function () {
 $('#reply-list').on('click', '.reply-edit-btn', function (e) {
   e.preventDefault;
   var reply_id = $(this).attr('id');
-  $(this).siblings('.comment-edit-form').toggle();
+  $(this).siblings('.text-form').css('display', 'none');
+  $(this).siblings('.comment-edit-form').css('display', 'block');
   $(this).siblings('.comment-edit-form').find('.update').click(function () {
     var edited_reply_body = $(this).siblings('.reply-edit-textarea').val();
     axios("/api/replies", {
@@ -37684,10 +37685,12 @@ $('#reply-list').on('click', '.reply-edit-btn', function (e) {
 $('#reply-list').on('click', '.reply-reply-btn', function (e) {
   e.preventDefault;
   var reply_id = $(this).attr('id');
-  var article_id = $(this).siblings('.article_id').attr('value');
-  $(this).siblings('.comment-reply-form').toggle();
+  $(this).siblings('.text-form').css('display', 'none');
+  $(this).siblings('.comment-reply-form').css('display', 'block');
   $(this).siblings('.comment-reply-form').find('.reply').click(function () {
     var reply_body = $(this).siblings('.reply-reply-textarea').val();
+    var article_id = $(this).data('article-id');
+    console.log(article_id);
     axios("/api/replies/nested", {
       method: "PUT",
       params: {

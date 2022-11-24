@@ -22,4 +22,6 @@ Route::namespace('Api\V1')->middleware(['auth:sanctum'])->group(function () {
     Route::delete('replies/delete','ReplyApiController@destroy')->name('api.replies.delete');
     Route::patch('replies','ReplyApiController@update')->name('api.replies.update');
     Route::put('replies/nested','ReplyApiController@storenested')->name('api.replies.nested');
+
+    Route::resource('votes','VoteApiController');
 });

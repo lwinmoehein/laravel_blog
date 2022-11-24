@@ -72,13 +72,15 @@ $('#reply-list').on('click','.reply-reply-btn',function(e) {
     e.preventDefault;
 
     let reply_id=$(this).attr('id');
-    let article_id=$(this).siblings('.article_id').attr('value');
 
     $(this).siblings('.text-form').css('display','none');
 
     $(this).siblings('.comment-reply-form').css('display','block');
     $(this).siblings('.comment-reply-form').find('.reply').click(function(){
         let reply_body=$(this).siblings('.reply-reply-textarea').val();
+        let article_id=$(this).data('article-id');
+
+        console.log(article_id);
 
         axios(
             "/api/replies/nested",{

@@ -19,7 +19,7 @@
         <div class="text-form comment-reply-form  mx-5 mt-3" style="display: none">
             <div class="form-group ">
                 <textarea class="form-control reply-reply-textarea" id="{{$reply->id}}" cols="5" rows="2"></textarea>
-                <button class="mt-2 nav-link btn reply">Reply Comment</button>
+                <button class="mt-2 nav-link btn reply" data-article-id="{{$reply->article->id}}" > Reply Comment</button>
             </div>
         </div>
     </div>
