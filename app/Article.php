@@ -44,4 +44,18 @@ class Article extends Model
 
         return $body;
     }
+    public function votes(){
+        return $this->hasMany(Vote::class);
+    }
+    public function getVoteCountAttribute(){
+        return $this->votes->sum("value");
+    }
+    public function getIsUpVotedAttribute(){
+        $upVotes =  Vote::where('article_id',$this->id)->where('voter_id',auth()->user()->id)->where('value',1)->get();
+        return count($upVotes)>=1;
+    }
+    public function getIsDownVotedAttribute(){
+        $downVotes =  Vote::where('article_id',$this->id)->where('voter_id',auth()->user()->id)->where('value',-1)->get();
+        return count($downVotes)>=1;
+    }
 }

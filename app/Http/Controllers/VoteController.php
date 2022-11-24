@@ -1,24 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers;
 
 use App\Repositories\VoteRepository;
 use App\Services\VoteService;
 use App\Vote;
-use F9Web\ApiResponseHelpers;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-
-class VoteApiController extends Controller
+class VoteController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    use ApiResponseHelpers;
-
     protected $voteService;
     protected $voteRepository;
     public function __construct(VoteService $service,VoteRepository $repository)
@@ -26,6 +21,11 @@ class VoteApiController extends Controller
         //
         $this->voteService = $service;
         $this->voteRepository = $repository;
+    }
+
+    public function index()
+    {
+        //
     }
 
     /**
@@ -49,10 +49,17 @@ class VoteApiController extends Controller
         //
         if($request->vote_type==1){
             $this->voteService->upvote($request->article_id);
-        }else{
+            return redirect()->back()->with('message', 'Upvoted the article.');
+        }else if($request->vote_type==0){
+            $this->voteService->removeUpVote($request->article_id);
+            return redirect()->back()->with('message', 'Removed upvoted for the article.');
+        }else if($request->vote_type==-1){
             $this->voteService->downVote($request->article_id);
+            return redirect()->back()->with('message', 'Downvoted the article.');
+        }else{
+            $this->voteService->removeDownVote($request->article_id);
+            return redirect()->back()->with('message', 'Removed downvote for the article.');
         }
-        return $this->respondCreated();
     }
 
     /**

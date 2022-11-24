@@ -47,4 +47,7 @@ class User extends Authenticatable
     {
         return $this->morphMany('App\Image', 'imageable');
     }
+    function votes(){
+        return $this->hasMany(Vote::class);
+    }
 }

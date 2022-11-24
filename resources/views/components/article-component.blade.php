@@ -1,6 +1,21 @@
 <div class="container alert alert-secondary p-1 p-md-2 px-0">
     <div class="row p-2">
-        <div class="col-12">
+        <div class="col-1 d-flex flex-column justify-content-center align-items-center">
+            <form method="POST" action="{{route('votes.store')}}">
+                @csrf
+                <input type="hidden" name="vote_type" value="{{$article->is_up_voted?0:1}}">
+                <input type="hidden" name="article_id" value="{{$article->id}}">
+                <button type="submit"> <i class="fa fa-caret-up"></i></button>
+            </form>
+            <span>{{$article->vote_count}}</span>
+            <form method="POST" action="{{route('votes.store')}}">
+                @csrf
+                <input type="hidden" name="vote_type" value="{{$article->is_down_voted?-2:-1}}">
+                <input type="hidden" name="article_id" value="{{$article->id}}">
+                <button type="submit"> <i class="fa fa-caret-down"></i></button>
+            </form>
+        </div>
+        <div class="col-11">
             <div class="d-flex justify-content-between">
                 <h3>
                     <a href="{{ route('articles.show', $article->id) }}">
@@ -19,10 +34,6 @@
                 @endif
 
             </div>
-{{--            <pre><code class="language-php">{{ $article->read_more_description }}</code></pre>--}}
-{{--            @foreach ($article->images as $image)--}}
-{{--                <img width="100px" height="100px" src="{{ url(str_replace('public', 'storage', $image->url)) }}">--}}
-{{--            @endforeach--}}
         </div>
     </div>
 </div>
