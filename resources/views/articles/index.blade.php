@@ -4,8 +4,22 @@
 <x-message-notification-component/>
 <x-error-notification-component/>
 
-  <div>
-    <x-article-list-component :articles="$articles"/>
+  <div class="row">
+      <div class="col-12 d-block d-md-none">
+          <a href="#filter_tags" class="btn btn-default font-weight-bold mb-3 px-0 font-weight-bold" data-toggle="collapse">Filter by Tags <i class="fa fa-caret-down ml-2"></i> </a>
+          <div id="filter_tags" class="collapse">
+              <x-tags-filter   :tags="$tags"/>
+          </div>
+          <hr/>
+      </div>
+      <div class="col-12 col-md-8">
+          <h4 class="font-weight-bolder mb-4">Articles</h4>
+          <x-article-list-component :articles="$articles"/>
+      </div>
+      <div class="col-md-4 d-none d-md-block">
+          <h5 class="font-weight-bold">Filter by tags :</h5>
+          <x-tags-filter :tags="$tags"/>
+      </div>
   </div>
 
 @endsection

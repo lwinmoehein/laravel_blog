@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md bg-primary shadow-lg fixed-top" >
-    <div class="container">
+    <div class="container px-md-5">
         <a class="navbar-brand text-white" href="{{ url('/') }}">
             {{ config('app.name', 'Bloggars') }}
         </a>

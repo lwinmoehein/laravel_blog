@@ -35,8 +35,9 @@ class ArticleController extends Controller
     //get all paginated articles
     public function index(Request $request)
     {
-        $articles=$this->articleRepository->all();
-        return view('articles.index',compact(['articles']));
+        $articles=$this->articleRepository->all([$request->tag]);
+        $tags = $this->tagRepository->all();
+        return view('articles.index',compact(['articles','tags']));
     }
 
     //get one article
