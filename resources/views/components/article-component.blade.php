@@ -5,14 +5,14 @@
                 @csrf
                 <input type="hidden" name="vote_type" value="{{$article->is_up_voted?0:1}}">
                 <input type="hidden" name="article_id" value="{{$article->id}}">
-                <button type="submit"> <i class="fa fa-caret-up"></i></button>
+                <button type="submit" class="btn"> <i class="fa fa-caret-up {{$article->is_up_voted?'text-primary':''}}"></i></button>
             </form>
             <span>{{$article->vote_count}}</span>
             <form method="POST" action="{{route('votes.store')}}">
                 @csrf
                 <input type="hidden" name="vote_type" value="{{$article->is_down_voted?-2:-1}}">
                 <input type="hidden" name="article_id" value="{{$article->id}}">
-                <button type="submit"> <i class="fa fa-caret-down"></i></button>
+                <button type="submit" class="btn"> <i class="fa fa-caret-down {{$article->is_down_voted?'text-primary':''}}"></i></button>
             </form>
         </div>
         <div class="col-11">

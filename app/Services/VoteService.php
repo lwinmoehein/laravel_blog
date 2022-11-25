@@ -13,6 +13,7 @@ class VoteService
     }
 
     public function upVote($articleId){
+        Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',-1)->delete();
         return Vote::create([
             "article_id"=>$articleId,
             "voter_id"=>auth()->user()->id,
@@ -21,6 +22,7 @@ class VoteService
     }
 
     public function downVote($articleId){
+        Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',1)->delete();
         return Vote::create([
             "article_id"=>$articleId,
             "voter_id"=>auth()->user()->id,
