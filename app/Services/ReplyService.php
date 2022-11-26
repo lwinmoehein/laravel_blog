@@ -1,6 +1,8 @@
 <?php
 namespace App\Services;
 
+use App\Achievement;
+use App\Notifications\GotNewAchievement;
 use App\Reply;
 use App\Http\Requests\ReplyStoreRequest;
 use App\Http\Requests\ReplyUpdateRequest;
@@ -20,6 +22,13 @@ class ReplyService
     }
 
     public function store(ReplyStoreRequest $request){
+        $isNotFirstTime  = auth()->user()->replies()->exists();
+        $newTeacherAchievement = Achievement::where('name',"ဆရာလေး")->get()->first();
+
+        if(!$isNotFirstTime){
+            auth()->user()->notify(new GotNewAchievement($newTeacherAchievement, auth()->user()));
+        }
+
         $reply= new Reply($request->validated());
         $reply->fill(['user_id'=>auth()->id()])->save();
         return $reply;

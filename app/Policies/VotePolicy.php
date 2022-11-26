@@ -19,25 +19,13 @@ class VotePolicy
     {
         //
     }
-    public function update(User $user,Vote $vote)
-    {
-        return $user->id===$vote->voter_id;
-    }
 
-    public function delete(User $user,Vote $vote){
-        return $user->id===$vote->voter_id;
-    }
-
-    public function store(User $user)
+    public function upVote()
     {
-        return $user->email_verified_at!=null;
+        return auth()->user()->email_verified_at!=null;
     }
-    public function upVote(User $user)
+    public function downVote()
     {
-        return $user->email_verified_at!=null;
-    }
-    public function downVote(User $user)
-    {
-        return $user->email_verified_at!=null;
+        return auth()->user()->email_verified_at!=null;
     }
 }

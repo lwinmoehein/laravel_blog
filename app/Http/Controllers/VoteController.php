@@ -47,19 +47,40 @@ class VoteController extends Controller
     public function store(Request $request)
     {
         //
+        $isVoteSuccess = false;
+        $message = "";
+
         if($request->vote_type==1){
-            $this->voteService->upvote($request->article_id);
-            return redirect()->back()->with('message', 'Upvoted the article.');
+            $isUpvoted = $this->voteService->upvote($request->article_id);
+            if($isUpvoted){
+               $message = "Upvoted the article.";
+            }
+            $isVoteSuccess = $isUpvoted;
         }else if($request->vote_type==0){
-            $this->voteService->removeUpVote($request->article_id);
-            return redirect()->back()->with('message', 'Removed upvoted for the article.');
+            $isUpvoteRemoved = $this->voteService->removeUpVote($request->article_id);
+            if($isUpvoteRemoved){
+                $message = "Upvote removed.";
+            }
+            $isVoteSuccess = $isUpvoteRemoved;
         }else if($request->vote_type==-1){
-            $this->voteService->downVote($request->article_id);
-            return redirect()->back()->with('message', 'Downvoted the article.');
+            $isDownVoted = $this->voteService->downVote($request->article_id);
+            if($isDownVoted){
+                $message = "Downvoted the article.";
+            }
+            $isVoteSuccess = $isDownVoted;
         }else{
-            $this->voteService->removeDownVote($request->article_id);
-            return redirect()->back()->with('message', 'Removed downvote for the article.');
+            $isDownVoteRemoved = $this->voteService->removeDownVote($request->article_id);
+            if($isDownVoteRemoved){
+                $message = "Downvote removed.";
+            }
+            $isVoteSuccess = $isDownVoteRemoved;
         }
+
+        if(!$isVoteSuccess) {
+            return redirect()->back()->withErrors('Vote ပေးနိုင်ခြင်းမရှိပါ။');
+        }
+        return redirect()->back()->with('message',$message);
+
     }
 
     /**

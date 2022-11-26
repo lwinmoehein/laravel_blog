@@ -1,6 +1,8 @@
 <?php
 namespace App\Services;
+use App\Achievement;
 use App\Article;
+use App\Notifications\GotNewAchievement;
 use App\Repositories\ArticleRepository;
 use App\Http\Requests\ArticleStoreRequest;
 use App\Image;
@@ -18,10 +20,19 @@ class ArticleService
     }
 
     public function store(ArticleStoreRequest $request){
+
+        $isNotFirstTime  = auth()->user()->articles()->exists();
+        $newStudentAchievement = Achievement::where('name',"ကျောင်းသားသစ်")->get()->first();
+
+        if(!$isNotFirstTime){
+            auth()->user()->notify(new GotNewAchievement($newStudentAchievement, auth()->user()));
+        }
+
         $article= new Article($request->validated());
         $article->fill(['user_id'=>auth()->id()])->save();
         $article->tags()->attach($request['tags']);
         $article->images()->save(new Image(['url'=>$request->image_url]));
+
         return $article;
     }
 

@@ -13,30 +13,46 @@ class VoteService
     }
 
     public function upVote($articleId){
-        if(auth()->user()->can('upVote',$vote)){
-
+        if(!auth()->user()->can('upVote',Vote::class)){
+            return  false;
         }
 
         Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',-1)->delete();
-        return Vote::create([
+        Vote::create([
             "article_id"=>$articleId,
             "voter_id"=>auth()->user()->id,
             "value"=>1
         ]);
+        return  true;
     }
 
     public function downVote($articleId){
+        if(!auth()->user()->can('downVote',Vote::class)){
+            return  false;
+        }
+
         Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',1)->delete();
-        return Vote::create([
+        Vote::create([
             "article_id"=>$articleId,
             "voter_id"=>auth()->user()->id,
             "value"=>-1
         ]);
+        return  true;
     }
     public function removeDownVote($articleId){
-        return Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',-1)->delete();
+        if(!auth()->user()->can('downVote',Vote::class)){
+            return  false;
+        }
+        Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',-1)->delete();
+
+        return true;
     }
     public function removeUpVote($articleId){
-        return Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',1)->delete();
+        if(!auth()->user()->can('upVote',Vote::class)){
+            return  false;
+        }
+        Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',1)->delete();
+
+        return true;
     }
 }
