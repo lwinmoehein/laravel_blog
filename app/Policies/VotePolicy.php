@@ -30,6 +30,14 @@ class VotePolicy
 
     public function store(User $user)
     {
-        return true;
+        return $user->email_verified_at!=null;
+    }
+    public function upVote(User $user)
+    {
+        return $user->email_verified_at!=null;
+    }
+    public function downVote(User $user)
+    {
+        return $user->email_verified_at!=null;
     }
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Achievement extends Model
+class Badge extends Model
 {
     //
     protected  $fillable = [
@@ -12,7 +12,6 @@ class Achievement extends Model
         "description"
     ];
 
-    public  function users(){
-        return $this->belongsToMany(User::class);
-    }
+
+
 }

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable,HasApiTokens;
     /**
@@ -49,5 +49,12 @@ class User extends Authenticatable
     }
     function votes(){
         return $this->hasMany(Vote::class);
+    }
+    function achievements(){
+        return $this->belongsToMany(Achievement::class);
+    }
+
+    function badges(){
+        return $this->belongsToMany(Badge::class);
     }
 }

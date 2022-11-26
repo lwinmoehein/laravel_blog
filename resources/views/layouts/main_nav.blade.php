@@ -8,11 +8,6 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-
-            </ul>
-
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
@@ -26,9 +21,13 @@
                         </li>
                     @endif
                 @else
-
                    <div class="d-flex flex-column flex-md-row px-0 align-items-start align-items-md-center">
-                            @yield('action-button')
+                       @yield('action-button')
+                       <li class="nav-item dropdown w-100 mr-2">
+                           <a class="nav-link px-3 py-1 mt-2 w-100" href="{{route('notifications.index')}}" role="button">
+                               <i class="fa fa-bell"></i>
+                           </a>
+                       </li>
                     <li class="nav-item dropdown w-100">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle px-3 py-1 mt-2 w-100" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
@@ -45,7 +44,7 @@
                                 @csrf
                             </form>
                         </div>
-                    </li>
+
                    </div>
                 @endguest
             </ul>

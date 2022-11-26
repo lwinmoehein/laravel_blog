@@ -13,6 +13,10 @@ class VoteService
     }
 
     public function upVote($articleId){
+        if(auth()->user()->can('upVote',$vote)){
+
+        }
+
         Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',-1)->delete();
         return Vote::create([
             "article_id"=>$articleId,
