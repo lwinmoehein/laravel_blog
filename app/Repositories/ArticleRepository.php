@@ -4,17 +4,24 @@ namespace App\Repositories;
 
 use App\Article;
 use Symfony\Component\HttpFoundation\Request;
-
+use App\Tag;
 class ArticleRepository
 {
-    public function all()
+    public function all($tag=null)
     {
-        return Article::paginate(5);
+        if($tag==null){
+            return Article::orderBy('created_at','desc')->with('votes')->paginate(5);
+        }else{
+            $tags=[$tag];
+            return Article::whereHas('tags', function($q) use ($tags){
+                $q->whereIn("tags.id",$tags);
+            })->orderBy('created_at','desc')->with('votes')->paginate(5);
+        }
     }
 
     public function get($article_id)
     {
-        return Article::find($article_id);
+        return Article::findOrFail($article_id);
     }
 
     public function search(Request $request){

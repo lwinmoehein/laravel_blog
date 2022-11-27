@@ -19,7 +19,4 @@ class UserRepository
     public function get($id){
         return User::find($id);
     }
-    public function getCurrentUser(){
-        return Auth::user();
-    }
 }

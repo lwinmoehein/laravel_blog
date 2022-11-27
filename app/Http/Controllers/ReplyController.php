@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\AchievementRepository;
+use App\Services\AchievementService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Repositories\ReplyRepository;
@@ -16,17 +18,29 @@ class ReplyController extends Controller
     //
     protected $replyService;
     protected $replyRepository;
+    protected $achievementService;
+    protected $achievementRepository;
 
-    public function __construct(ReplyRepository $replyRepository){
+    public function __construct(
+        ReplyRepository $replyRepository,
+        AchievementService $achievementService,
+        AchievementRepository $achievementRepository
+    ){
 
             $this->replyRepository=$replyRepository;
-            $this->replyService=new ReplyService($replyRepository);
+            $this->replyService=new ReplyService(
+                $replyRepository,
+                $achievementRepository,
+                $achievementService
+            );
+
             $this->middleware('auth');
 
     }
     //store a reply
     public function store(ReplyStoreRequest $request){
         $reply=$this->replyService->store($request);
+        dd($reply);
         if($reply){
             return view('components.reply-list-component',['article'=>$reply->article]);
         }

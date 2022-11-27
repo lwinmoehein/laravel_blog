@@ -6329,6 +6329,408 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/bootstrap/js/src/alert.js":
+/*!************************************************!*\
+  !*** ./node_modules/bootstrap/js/src/alert.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util */ "./node_modules/bootstrap/js/src/util.js");
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.5.0): alert.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+
+
+
+/**
+ * ------------------------------------------------------------------------
+ * Constants
+ * ------------------------------------------------------------------------
+ */
+
+const NAME                = 'alert'
+const VERSION             = '4.5.0'
+const DATA_KEY            = 'bs.alert'
+const EVENT_KEY           = `.${DATA_KEY}`
+const DATA_API_KEY        = '.data-api'
+const JQUERY_NO_CONFLICT  = jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn[NAME]
+
+const SELECTOR_DISMISS = '[data-dismiss="alert"]'
+
+const EVENT_CLOSE          = `close${EVENT_KEY}`
+const EVENT_CLOSED         = `closed${EVENT_KEY}`
+const EVENT_CLICK_DATA_API = `click${EVENT_KEY}${DATA_API_KEY}`
+
+const CLASS_NAME_ALERT = 'alert'
+const CLASS_NAME_FADE  = 'fade'
+const CLASS_NAME_SHOW  = 'show'
+
+/**
+ * ------------------------------------------------------------------------
+ * Class Definition
+ * ------------------------------------------------------------------------
+ */
+
+class Alert {
+  constructor(element) {
+    this._element = element
+  }
+
+  // Getters
+
+  static get VERSION() {
+    return VERSION
+  }
+
+  // Public
+
+  close(element) {
+    let rootElement = this._element
+    if (element) {
+      rootElement = this._getRootElement(element)
+    }
+
+    const customEvent = this._triggerCloseEvent(rootElement)
+
+    if (customEvent.isDefaultPrevented()) {
+      return
+    }
+
+    this._removeElement(rootElement)
+  }
+
+  dispose() {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.removeData(this._element, DATA_KEY)
+    this._element = null
+  }
+
+  // Private
+
+  _getRootElement(element) {
+    const selector = _util__WEBPACK_IMPORTED_MODULE_1__["default"].getSelectorFromElement(element)
+    let parent     = false
+
+    if (selector) {
+      parent = document.querySelector(selector)
+    }
+
+    if (!parent) {
+      parent = jquery__WEBPACK_IMPORTED_MODULE_0___default()(element).closest(`.${CLASS_NAME_ALERT}`)[0]
+    }
+
+    return parent
+  }
+
+  _triggerCloseEvent(element) {
+    const closeEvent = jquery__WEBPACK_IMPORTED_MODULE_0___default.a.Event(EVENT_CLOSE)
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(element).trigger(closeEvent)
+    return closeEvent
+  }
+
+  _removeElement(element) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(element).removeClass(CLASS_NAME_SHOW)
+
+    if (!jquery__WEBPACK_IMPORTED_MODULE_0___default()(element).hasClass(CLASS_NAME_FADE)) {
+      this._destroyElement(element)
+      return
+    }
+
+    const transitionDuration = _util__WEBPACK_IMPORTED_MODULE_1__["default"].getTransitionDurationFromElement(element)
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(element)
+      .one(_util__WEBPACK_IMPORTED_MODULE_1__["default"].TRANSITION_END, (event) => this._destroyElement(element, event))
+      .emulateTransitionEnd(transitionDuration)
+  }
+
+  _destroyElement(element) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(element)
+      .detach()
+      .trigger(EVENT_CLOSED)
+      .remove()
+  }
+
+  // Static
+
+  static _jQueryInterface(config) {
+    return this.each(function () {
+      const $element = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this)
+      let data       = $element.data(DATA_KEY)
+
+      if (!data) {
+        data = new Alert(this)
+        $element.data(DATA_KEY, data)
+      }
+
+      if (config === 'close') {
+        data[config](this)
+      }
+    })
+  }
+
+  static _handleDismiss(alertInstance) {
+    return function (event) {
+      if (event) {
+        event.preventDefault()
+      }
+
+      alertInstance.close(this)
+    }
+  }
+}
+
+/**
+ * ------------------------------------------------------------------------
+ * Data Api implementation
+ * ------------------------------------------------------------------------
+ */
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on(
+  EVENT_CLICK_DATA_API,
+  SELECTOR_DISMISS,
+  Alert._handleDismiss(new Alert())
+)
+
+/**
+ * ------------------------------------------------------------------------
+ * jQuery
+ * ------------------------------------------------------------------------
+ */
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn[NAME]             = Alert._jQueryInterface
+jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn[NAME].Constructor = Alert
+jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn[NAME].noConflict  = () => {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn[NAME] = JQUERY_NO_CONFLICT
+  return Alert._jQueryInterface
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Alert);
+
+
+/***/ }),
+
+/***/ "./node_modules/bootstrap/js/src/util.js":
+/*!***********************************************!*\
+  !*** ./node_modules/bootstrap/js/src/util.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.5.0): util.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+
+
+
+/**
+ * ------------------------------------------------------------------------
+ * Private TransitionEnd Helpers
+ * ------------------------------------------------------------------------
+ */
+
+const TRANSITION_END = 'transitionend'
+const MAX_UID = 1000000
+const MILLISECONDS_MULTIPLIER = 1000
+
+// Shoutout AngusCroll (https://goo.gl/pxwQGp)
+function toType(obj) {
+  if (obj === null || typeof obj === 'undefined') {
+    return `${obj}`
+  }
+
+  return {}.toString.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase()
+}
+
+function getSpecialTransitionEndEvent() {
+  return {
+    bindType: TRANSITION_END,
+    delegateType: TRANSITION_END,
+    handle(event) {
+      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(event.target).is(this)) {
+        return event.handleObj.handler.apply(this, arguments) // eslint-disable-line prefer-rest-params
+      }
+      return undefined
+    }
+  }
+}
+
+function transitionEndEmulator(duration) {
+  let called = false
+
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).one(Util.TRANSITION_END, () => {
+    called = true
+  })
+
+  setTimeout(() => {
+    if (!called) {
+      Util.triggerTransitionEnd(this)
+    }
+  }, duration)
+
+  return this
+}
+
+function setTransitionEndSupport() {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.emulateTransitionEnd = transitionEndEmulator
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent()
+}
+
+/**
+ * --------------------------------------------------------------------------
+ * Public Util Api
+ * --------------------------------------------------------------------------
+ */
+
+const Util = {
+  TRANSITION_END: 'bsTransitionEnd',
+
+  getUID(prefix) {
+    do {
+      // eslint-disable-next-line no-bitwise
+      prefix += ~~(Math.random() * MAX_UID) // "~~" acts like a faster Math.floor() here
+    } while (document.getElementById(prefix))
+    return prefix
+  },
+
+  getSelectorFromElement(element) {
+    let selector = element.getAttribute('data-target')
+
+    if (!selector || selector === '#') {
+      const hrefAttr = element.getAttribute('href')
+      selector = hrefAttr && hrefAttr !== '#' ? hrefAttr.trim() : ''
+    }
+
+    try {
+      return document.querySelector(selector) ? selector : null
+    } catch (err) {
+      return null
+    }
+  },
+
+  getTransitionDurationFromElement(element) {
+    if (!element) {
+      return 0
+    }
+
+    // Get transition-duration of the element
+    let transitionDuration = jquery__WEBPACK_IMPORTED_MODULE_0___default()(element).css('transition-duration')
+    let transitionDelay = jquery__WEBPACK_IMPORTED_MODULE_0___default()(element).css('transition-delay')
+
+    const floatTransitionDuration = parseFloat(transitionDuration)
+    const floatTransitionDelay = parseFloat(transitionDelay)
+
+    // Return 0 if element or transition duration is not found
+    if (!floatTransitionDuration && !floatTransitionDelay) {
+      return 0
+    }
+
+    // If multiple durations are defined, take the first
+    transitionDuration = transitionDuration.split(',')[0]
+    transitionDelay = transitionDelay.split(',')[0]
+
+    return (parseFloat(transitionDuration) + parseFloat(transitionDelay)) * MILLISECONDS_MULTIPLIER
+  },
+
+  reflow(element) {
+    return element.offsetHeight
+  },
+
+  triggerTransitionEnd(element) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(element).trigger(TRANSITION_END)
+  },
+
+  // TODO: Remove in v5
+  supportsTransitionEnd() {
+    return Boolean(TRANSITION_END)
+  },
+
+  isElement(obj) {
+    return (obj[0] || obj).nodeType
+  },
+
+  typeCheckConfig(componentName, config, configTypes) {
+    for (const property in configTypes) {
+      if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
+        const expectedTypes = configTypes[property]
+        const value         = config[property]
+        const valueType     = value && Util.isElement(value)
+          ? 'element' : toType(value)
+
+        if (!new RegExp(expectedTypes).test(valueType)) {
+          throw new Error(
+            `${componentName.toUpperCase()}: ` +
+            `Option "${property}" provided type "${valueType}" ` +
+            `but expected type "${expectedTypes}".`)
+        }
+      }
+    }
+  },
+
+  findShadowRoot(element) {
+    if (!document.documentElement.attachShadow) {
+      return null
+    }
+
+    // Can find the shadow root otherwise it'll return the document
+    if (typeof element.getRootNode === 'function') {
+      const root = element.getRootNode()
+      return root instanceof ShadowRoot ? root : null
+    }
+
+    if (element instanceof ShadowRoot) {
+      return element
+    }
+
+    // when we don't find a shadow root
+    if (!element.parentNode) {
+      return null
+    }
+
+    return Util.findShadowRoot(element.parentNode)
+  },
+
+  jQueryDetection() {
+    if (typeof jquery__WEBPACK_IMPORTED_MODULE_0___default.a === 'undefined') {
+      throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.')
+    }
+
+    const version = jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.jquery.split(' ')[0].split('.')
+    const minMajor = 1
+    const ltMajor = 2
+    const minMinor = 9
+    const minPatch = 1
+    const maxMajor = 4
+
+    if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
+      throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0')
+    }
+  }
+}
+
+Util.jQueryDetection()
+setTransitionEndSupport()
+
+/* harmony default export */ __webpack_exports__["default"] = (Util);
+
+
+/***/ }),
+
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
@@ -37227,6 +37629,8 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+var alert = __webpack_require__(/*! bootstrap/js/src/alert */ "./node_modules/bootstrap/js/src/alert.js");
+
 window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"); //upload image
 
 function uploadImage() {
@@ -37237,66 +37641,43 @@ function uploadImage() {
 
 $('#comment').on('click', function (e) {
   e.preventDefault();
-  $.ajax({
-    url: '/replies/create',
-    type: 'PUT',
-    headers: {
-      'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
-    },
-    success: function success(result) {
-      document.getElementById('reply-list').innerHTML = result;
-    },
-    data: {
+  axios("/api/replies/create", {
+    method: "PUT",
+    params: {
       article_id: $('#article_id').val(),
       body: $('#body').val()
-    },
-    error: function error(result) {
-      alert(result);
     }
+  }).then(function (res) {
+    window.location.reload();
   });
 }); //delete comment
 
 $('#reply-list').on('click', '.reply-delete-btn', function () {
-  $.ajax({
-    url: '/replies/delete',
-    type: 'DELETE',
-    headers: {
-      'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
-    },
-    success: function success(result) {
-      document.getElementById('reply-list').innerHTML = result;
-    },
-    data: {
+  axios("/api/replies/delete", {
+    method: "DELETE",
+    params: {
       id: $(this).attr('id')
-    },
-    error: function error(result) {
-      alert(result);
     }
+  }).then(function (res) {
+    window.location.reload();
   });
 }); //edit comment
 
 $('#reply-list').on('click', '.reply-edit-btn', function (e) {
   e.preventDefault;
   var reply_id = $(this).attr('id');
-  $(this).siblings('.comment-edit-form').toggle();
+  $(this).siblings('.text-form').css('display', 'none');
+  $(this).siblings('.comment-edit-form').css('display', 'block');
   $(this).siblings('.comment-edit-form').find('.update').click(function () {
     var edited_reply_body = $(this).siblings('.reply-edit-textarea').val();
-    $.ajax({
-      url: '/replies',
-      type: 'PATCH',
-      headers: {
-        'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
-      },
-      success: function success(result) {
-        $('#reply-list').html(result);
-      },
-      data: {
+    axios("/api/replies", {
+      method: "PATCH",
+      params: {
         id: reply_id,
         body: edited_reply_body
-      },
-      error: function error(result) {
-        alert(result);
       }
+    }).then(function (res) {
+      window.location.reload();
     });
   });
 }); //reply to a comment
@@ -37304,27 +37685,21 @@ $('#reply-list').on('click', '.reply-edit-btn', function (e) {
 $('#reply-list').on('click', '.reply-reply-btn', function (e) {
   e.preventDefault;
   var reply_id = $(this).attr('id');
-  var article_id = $(this).siblings('.article_id').attr('value');
-  $(this).siblings('.comment-reply-form').toggle();
+  $(this).siblings('.text-form').css('display', 'none');
+  $(this).siblings('.comment-reply-form').css('display', 'block');
   $(this).siblings('.comment-reply-form').find('.reply').click(function () {
     var reply_body = $(this).siblings('.reply-reply-textarea').val();
-    $.ajax({
-      url: '/replies/nested',
-      type: 'PUT',
-      headers: {
-        'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
-      },
-      success: function success(result) {
-        document.getElementById('reply-list').innerHTML = result;
-      },
-      data: {
+    var article_id = $(this).data('article-id');
+    console.log(article_id);
+    axios("/api/replies/nested", {
+      method: "PUT",
+      params: {
         id: reply_id,
         body: reply_body,
         article_id: article_id
-      },
-      error: function error(result) {
-        alert(result);
       }
+    }).then(function (res) {
+      window.location.reload();
     });
   });
 });
@@ -37360,6 +37735,7 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.withCredentials = true;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

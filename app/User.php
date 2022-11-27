@@ -6,11 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
-
+    use Notifiable,HasApiTokens;
     /**
      * The attributes that are mass assignable.
      *
@@ -46,5 +46,15 @@ class User extends Authenticatable
     public function images()
     {
         return $this->morphMany('App\Image', 'imageable');
+    }
+    function votes(){
+        return $this->hasMany(Vote::class);
+    }
+    function achievements(){
+        return $this->belongsToMany(Achievement::class,'achievement_user');
+    }
+
+    function badges(){
+        return $this->belongsToMany(Badge::class,'badge_user');
     }
 }

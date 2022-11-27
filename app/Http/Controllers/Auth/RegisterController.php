@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Services\UserService;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -36,9 +37,12 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    protected  $service;
+
+    public function __construct(UserService $service)
     {
         $this->middleware('guest');
+        $this->service = $service;
     }
 
     /**
@@ -64,10 +68,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return  $this->service->store($data);
     }
 }

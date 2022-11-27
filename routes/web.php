@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\App;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //article home
+Auth::routes(['verify' => true]);
+
+
 Route::get('/home', 'ArticleController@index')->name('articles.index');
 Route::get('/', 'ArticleController@index')->name('articles.index');
 Route::get('articles','ArticleController@index')->name('articles.index');
@@ -26,11 +29,15 @@ Route::patch('articles/{id}','ArticleController@update')->name('articles.update'
 Route::get('articles/{id}','ArticleController@show')->name('articles.show');
 //article delete
 Route::delete('articles/{id}','ArticleController@destroy')->name('articles.delete');
-
-Auth::routes();
-
 //article search
 Route::get('search/articles', 'SearchController@userList')->name('articles.search');
+
+//vote
+Route::resource('votes', 'VoteController');
+
+//notifications
+Route::resource('notifications', 'NotificationController');
+
 
 //article reply routes
 Route::put('replies/create','ReplyController@store')->name('replies.store');
@@ -40,3 +47,4 @@ Route::put('replies/nested','ReplyController@storenested')->name('replies.nested
 
 //image routes
 Route::post('images/store','ImageController@store')->name('images.store');
+

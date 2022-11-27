@@ -3,11 +3,10 @@
 namespace App\Policies;
 
 use App\User;
-use App\Image;
-use Illuminate\Support\Facades\Auth;
+use App\Reply;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ImageStorePolicy
+class ReplyPolicy
 {
     use HandlesAuthorization;
 
@@ -20,8 +19,11 @@ class ImageStorePolicy
     {
         //
     }
-
-    public function delete(User $user,Image $image){
-        return $user->id===$image->user_id;
+    public function modify(?User $user,Reply $reply)
+    {
+        return $user->email_verified_at!=null && $reply->user_id == $user->id;
+    }
+    public function store(?User $user){
+        return $user->email_verified_at!=null;
     }
 }

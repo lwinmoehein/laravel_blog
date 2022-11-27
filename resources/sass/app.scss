@@ -1,3 +1,5 @@
+$primary :#00796b;
+
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
@@ -37,3 +39,20 @@
 .navbar-toggler-icon {
     color: white !important;
 }
+.nav-link{
+    background-color:#00ac98 !important; ;
+    border-radius: 5px;
+}
+.dropdown-menu{
+    top: 40px !important;
+    width: 100% !important;
+    min-width: auto !important;
+    background-color: transparent;
+}
+.dropdown-menu>a{
+    color: white;
+    border-radius: 5px;
+    font-weight: bolder;
+    background-color: #00ac98 !important;
+}
+

@@ -21,7 +21,7 @@ class ReplyRepository
 
     }
     public function get($id){
-        return Reply::find($id);
+        return Reply::findOrFail($id);
     }
 
     public function getRelatedReplies($id){

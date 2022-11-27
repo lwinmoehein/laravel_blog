@@ -19,13 +19,12 @@ class ArticlePolicy
     {
         //
 
-
     }
-    public function update(User $user,Article $article)
+    public function modify(?User $user, Article $article)
     {
-        return $user->id===$article->user_id;
+        return $user->email_verified_at!=null && $article->user_id == $user->id;
     }
-    public function delete(User $user,Article $article){
-        return $user->id===$article->user_id;
+    public function store(?User $user){
+        return $user->email_verified_at!=null;
     }
 }
