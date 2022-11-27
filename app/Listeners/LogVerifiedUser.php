@@ -29,7 +29,7 @@ class LogVerifiedUser
     public function handle($event)
     {
         //
-        $voterBadge = Badge::where('name',"မဲပေးသူ")->get()->first();
+        $voterBadge = Badge::where('name',"Verified User")->get()->first();
 
         DB::table('badge_user')->insert(
             array(

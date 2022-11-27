@@ -5,7 +5,7 @@
 
     <div>
         <input type="hidden"   value="{{$reply->article->id}}">
-            @can('delete',$reply)
+            @can('modify',$reply)
                 <input type="button" class="btn text-danger bg-transparent rounded-sm  pr-1 pl-0 py-0 reply-delete-btn" id="{{$reply->id}}" value="delete comment"/>
                 <input type="button"  class="btn text-info  bg-transparent rounded-sm px-1 pl-0  py-0 reply-edit-btn" id="{{$reply->id}}"  value="edit comment"/>
             @endcan

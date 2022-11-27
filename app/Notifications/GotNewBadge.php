@@ -62,6 +62,7 @@ class GotNewBadge extends Notification
     {
         return [
             'id'=>$this->badge->id,
+            'type'=>get_class($this->badge),
             'title'=>$this->badge->name.' ဆိုတဲ့ Badge အသစ်ကို ရသွားပါပြီ။',
             'description'=>'ယခုအချိန်ကစပြီး '.$this->badge->description
         ];

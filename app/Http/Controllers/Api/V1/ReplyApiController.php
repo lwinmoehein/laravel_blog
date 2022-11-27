@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Repositories\AchievementRepository;
+use App\Services\AchievementService;
 use F9Web\ApiResponseHelpers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -20,14 +22,25 @@ class ReplyApiController extends Controller
 
     protected $replyService;
     protected $replyRepository;
+    protected $achievementService;
+    protected $achievementRepository;
 
-    public function __construct(ReplyRepository $replyRepository){
+    public function __construct(
+        ReplyRepository $replyRepository,
+        AchievementService $achievementService,
+        AchievementRepository $achievementRepository
+    ){
         $this->replyRepository=$replyRepository;
-        $this->replyService=new ReplyService($replyRepository);
+        $this->replyService=new ReplyService(
+            $replyRepository,
+            $achievementRepository,
+            $achievementService
+        );
     }
     //store a reply
     public function store(ReplyStoreRequest $request){
         $reply=$this->replyService->store($request);
+
         if($reply){
             return $this->respondCreated([
                 "data"=>$reply

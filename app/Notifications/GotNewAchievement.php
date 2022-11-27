@@ -64,6 +64,7 @@ class GotNewAchievement extends Notification
         return [
             //
             "id"=>$this->achievement->id,
+            "type"=>get_class($this->achievement),
             "title"=>$this->achievement->name.' ဆိုတဲ့ Achievement အသစ်ကို ရသွားပါပြီ။',
             "description"=>'ယခုအချိန်ကစပြီး '.$this->achievement->description
         ];

@@ -28,4 +28,14 @@ class NotificationComponent extends Component
     {
         return view('components.notification-component');
     }
+    public function getIconClass()
+    {
+        switch ($this->notification->data['type']){
+            case "App\Badge":
+                return "fa-certificate";
+                break;
+            default:
+                return "fa-trophy";
+        }
+    }
 }

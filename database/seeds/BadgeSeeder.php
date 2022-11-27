@@ -15,8 +15,8 @@ class BadgeSeeder extends Seeder
     {
         //
         Badge::create([
-            "name"=>"မဲပေးသူ",
-            "description"=>"မေးခွန်း နှင့် အဖြေ များကို vote ပေးနိုင်ပါသည်။"
+            "name"=>"Verified User",
+            "description"=>"မေးခွန်ုးမေးခြင်း ၊ အဖြေရေးခြင်း ၊ မေးခွန်း နှင့် အဖြေ များကို vote ပေးခြင်းများပြုလုပ်နိုင်ပါသည်။"
         ]);
 
         Badge::create([

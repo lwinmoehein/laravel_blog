@@ -12,7 +12,8 @@
 @endsection
 
 @section('content')
-<x-error-notification-component/>
+    <x-message-notification-component/>
+    <x-error-notification-component/>
 
 <div>
     @if(isset($article))

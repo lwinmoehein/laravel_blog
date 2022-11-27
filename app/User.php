@@ -51,10 +51,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Vote::class);
     }
     function achievements(){
-        return $this->belongsToMany(Achievement::class);
+        return $this->belongsToMany(Achievement::class,'achievement_user');
     }
 
     function badges(){
-        return $this->belongsToMany(Badge::class);
+        return $this->belongsToMany(Badge::class,'badge_user');
     }
 }

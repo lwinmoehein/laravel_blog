@@ -1,4 +1,4 @@
-@can('update',$article)
+@can('modify',$article)
 <div class="d-flex col-12 p-0 mt-5">
     <div class="w-100 mr-3 col-md-2 px-0">
        <button type="button" class="btn btn-primary w-100">

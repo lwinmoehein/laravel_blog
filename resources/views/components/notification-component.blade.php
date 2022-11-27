@@ -3,7 +3,8 @@
     <div class="">
         <div class="mb-0 d-flex align-items-start" data-toggle="collapse" data-target="{{'#notification-'.$notification->id}}">
             <span class="btn font-weight-bold text-left"  aria-expanded="true" aria-controls="{{'notification-'.$notification->id}}">
-              <i class="mr-2 fa fa-certificate text-success"></i>  {{$notification->data['title']}}
+              <i class="mr-2 fa {{$getIconClass()}} text-success"></i>
+                {{$notification->data['title']}}
             </span>
         </div>
     </div>
