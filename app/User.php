@@ -38,10 +38,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
     function articles(){
-        return $this->hasMany(Article::class);
+        return $this->hasMany(Question::class);
     }
     function replies(){
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Answer::class);
     }
     public function images()
     {

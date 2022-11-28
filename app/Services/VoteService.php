@@ -2,7 +2,7 @@
 namespace App\Services;
 use App\Repositories\VoteRepository;
 use App\Vote;
-use App\Article;
+use App\Question;
 
 class VoteService
 {

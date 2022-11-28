@@ -8,7 +8,7 @@ use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 /**
  * Class ReplyRepository.
  */
-use App\Reply;
+use App\Answer;
 class ReplyRepository
 {
     /**
@@ -17,14 +17,14 @@ class ReplyRepository
      */
     public function all()
     {
-        return Reply::all();
+        return Answer::all();
 
     }
     public function get($id){
-        return Reply::findOrFail($id);
+        return Answer::findOrFail($id);
     }
 
     public function getRelatedReplies($id){
-        return Reply::find($id)->article->replies;
+        return Answer::find($id)->article->replies;
     }
 }

@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Policies\ArticlePolicy;
-use App\Policies\ReplyPolicy;
+use App\Policies\QuestionPolicy;
+use App\Policies\AnswerPolicy;
 
 use App\User;
-use App\Article;
-use App\Reply;
+use App\Question;
+use App\Answer;
 use App\Vote;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -20,8 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-         Article::class => ArticlePolicy::class,
-         Reply::class=>ReplyPolicy::class
+         Question::class => QuestionPolicy::class,
+         Answer::class=>AnswerPolicy::class
     ];
 
     /**

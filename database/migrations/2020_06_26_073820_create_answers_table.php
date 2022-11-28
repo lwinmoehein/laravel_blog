@@ -13,15 +13,15 @@ class CreateRepliesTable extends Migration
      */
     public function up()
     {
-        Schema::create('replies', function (Blueprint $table) {
+        Schema::create('answers', function (Blueprint $table) {
             $table->id();
             $table->text('body');
-            $table->unsignedBigInteger('article_id')->nullable();
+            $table->unsignedBigInteger('question_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->integer('parent_id')->index()->nullable();
             $table->timestamps();
 
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
         });
     }
 

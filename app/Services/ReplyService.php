@@ -2,9 +2,9 @@
 namespace App\Services;
 
 use App\Achievement;
-use App\Article;
+use App\Question;
 use App\Notifications\GotNewAchievement;
-use App\Reply;
+use App\Answer;
 use App\Http\Requests\ReplyStoreRequest;
 use App\Http\Requests\ReplyUpdateRequest;
 use App\Repositories\AchievementRepository;
@@ -30,18 +30,18 @@ class ReplyService
     }
 
     public  function delete($id){
-        $reply = Reply::findOrFail($id);
+        $reply = Answer::findOrFail($id);
 
         if(!auth()->user()->can('modify',$reply)){
             return  false;
         }
-        Reply::destroy($id);
+        Answer::destroy($id);
 
         return true;
     }
 
     public function store(ReplyStoreRequest $request){
-        if(!auth()->user()->can('store',Reply::class)){
+        if(!auth()->user()->can('store',Answer::class)){
             return  false;
         }
 
@@ -53,25 +53,25 @@ class ReplyService
             auth()->user()->notify(new GotNewAchievement($newTeacherAchievement, auth()->user()));
         }
 
-        $reply= new Reply($request->validated());
+        $reply= new Answer($request->validated());
         $reply->fill(['user_id'=>auth()->id()])->save();
 
         return true;
     }
 
     public function storenested(ReplyStoreRequest $request){
-        if(!auth()->user()->can('store',Reply::class)){
+        if(!auth()->user()->can('store',Answer::class)){
             return  false;
         }
 
-        $reply= new Reply($request->validated());
+        $reply= new Answer($request->validated());
         $reply->fill(['user_id'=>auth()->id(),'parent_id'=>$request->id])->save();
 
         return true;
     }
 
     public function update(ReplyUpdateRequest $request){
-        $reply = Reply::findOrFail($request->id);
+        $reply = Answer::findOrFail($request->id);
 
         if(!auth()->user()->can('modify',$reply)){
             return  false;

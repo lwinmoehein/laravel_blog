@@ -4,7 +4,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
-class Article extends Model
+class Question extends Model
 {
     //
     use Searchable;
@@ -23,11 +23,11 @@ class Article extends Model
     //scout
     public function searchableAs()
     {
-        return 'articles_index';
+        return 'questions_index';
     }
-    public function replies()
+    public function answers()
     {
-        return $this->hasMany(Reply::class, 'article_id')->where('parent_id', '=', null);
+        return $this->hasMany(Answer::class, 'question_id')->where('parent_id', '=', null);
     }
 
     public function images()
@@ -51,11 +51,11 @@ class Article extends Model
         return $this->votes->sum("value");
     }
     public function getIsUpVotedAttribute(){
-        $upVotes =  Vote::where('article_id',$this->id)->where('voter_id',auth()->user()->id)->where('value',1)->get();
+        $upVotes =  Vote::where('question_id',$this->id)->where('voter_id',auth()->user()->id)->where('value',1)->get();
         return count($upVotes)>=1;
     }
     public function getIsDownVotedAttribute(){
-        $downVotes =  Vote::where('article_id',$this->id)->where('voter_id',auth()->user()->id)->where('value',-1)->get();
+        $downVotes =  Vote::where('question_id',$this->id)->where('voter_id',auth()->user()->id)->where('value',-1)->get();
         return count($downVotes)>=1;
     }
 }

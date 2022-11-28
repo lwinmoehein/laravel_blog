@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\User;
-use App\Reply;
+use App\Answer;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ReplyPolicy
+class AnswerPolicy
 {
     use HandlesAuthorization;
 
@@ -19,7 +19,7 @@ class ReplyPolicy
     {
         //
     }
-    public function modify(?User $user,Reply $reply)
+    public function modify(?User $user, Answer $reply)
     {
         return $user->email_verified_at!=null && $reply->user_id == $user->id;
     }

@@ -15,10 +15,10 @@ class CreateVotesTable extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('article_id');
+            $table->unsignedBigInteger('question_id');
             $table->unsignedBigInteger('voter_id');
 
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->foreign('voter_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

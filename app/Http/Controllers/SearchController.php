@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Article;
+use App\Question;
 use App\Repositories\ArticleRepository;
 use Illuminate\Http\Request;
 class SearchController extends Controller

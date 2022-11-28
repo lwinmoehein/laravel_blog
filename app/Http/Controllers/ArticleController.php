@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
+use App\Question;
 use App\Repositories\AchievementRepository;
 use App\Services\AchievementService;
 use App\Services\VoteService;
@@ -73,14 +73,14 @@ class ArticleController extends Controller
     {
         //
         $article=$this->articleService->store($request);
-        return redirect('/')->with('message', 'New Article Added!');
+        return redirect('/')->with('message', 'New Question Added!');
     }
     //create new article (view)
     public function create()
     {
         //
 
-        if (auth()->user()->can('store', Article::class)) {
+        if (auth()->user()->can('store', Question::class)) {
             return view('articles.new',['tags'=>$this->tagRepository->all()]);
         }
         return redirect()->back()->withErrors("မေးခွန်းများမေးနိုင်ရန် email address အား verify လုပ်ပေးပါ။");
@@ -135,9 +135,9 @@ class ArticleController extends Controller
         $isVoteSuccess = false;
         $message = "";
 
-        $article = Article::where('id',$request->article_id)->get()->first();
+        $article = Question::where('id',$request->article_id)->get()->first();
 
-        if(Gate::inspect('vote', Article::class)->denied()){
+        if(Gate::inspect('vote', Question::class)->denied()){
             return  redirect()->back()->withErrors("Vote ပေးနိုင်ခွင့်မရှိပါ။");
         }
 

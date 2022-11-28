@@ -3,11 +3,11 @@
 namespace App\Policies;
 
 use App\User;
-use App\Article;
+use App\Question;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
-class ArticlePolicy
+class QuestionPolicy
 {
     use HandlesAuthorization;
 
@@ -21,7 +21,7 @@ class ArticlePolicy
         //
 
     }
-    public function modify(?User $user, Article $article)
+    public function modify(?User $user, Question $article)
     {
         return $user->email_verified_at!=null && $article->user_id == $user->id;
     }
@@ -33,12 +33,12 @@ class ArticlePolicy
         return $user->email_verified_at!=null;
     }
 
-    public function upVote(User $user,Article $article)
+    public function upVote(User $user, Question $article)
     {
         return $user->id == $article->user_id? Response::allow()
             : Response::deny('Cannot upvote your own post.');
     }
-    public function downVote(?User $user,Article $article)
+    public function downVote(?User $user, Question $article)
     {
         return $user->id == $article->user_id? Response::allow()
             : Response::deny('Cannot downvote your own post.');

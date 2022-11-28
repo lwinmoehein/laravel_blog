@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 use App\Achievement;
-use App\Article;
+use App\Question;
 use App\Notifications\GotNewAchievement;
 use App\Repositories\AchievementRepository;
 use App\Repositories\ArticleRepository;
@@ -27,19 +27,19 @@ class ArticleService
     }
 
     public  function delete($id){
-        $article = Article::findOrFail($id);
+        $article = Question::findOrFail($id);
 
         if(!auth()->user()->can('modify',$article)){
             return  false;
         }
-        Article::destroy($id);
+        Question::destroy($id);
 
         return  true;
     }
 
     public function store(ArticleStoreRequest $request){
 
-        if(!auth()->user()->can('store',Article::class)){
+        if(!auth()->user()->can('store',Question::class)){
             return  false;
         }
 
@@ -51,7 +51,7 @@ class ArticleService
             auth()->user()->notify(new GotNewAchievement($newStudentAchievement, auth()->user()));
         }
 
-        $article= new Article($request->validated());
+        $article= new Question($request->validated());
         $article->fill(['user_id'=>auth()->id()])->save();
         $article->tags()->attach($request['tags']);
         $article->images()->save(new Image(['url'=>$request->image_url]));
@@ -61,7 +61,7 @@ class ArticleService
 
     public function update(ArticleStoreRequest $request,$id){
 
-        $article = Article::findOrFail($id);
+        $article = Question::findOrFail($id);
 
         if(!auth()->user()->can('modify',$article)){
             return  false;

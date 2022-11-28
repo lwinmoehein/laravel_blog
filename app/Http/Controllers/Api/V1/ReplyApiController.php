@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Repositories\ReplyRepository;
 use App\Services\ReplyService;
-use App\Article;
+use App\Question;
 use App\Http\Requests\ReplyDeleteRequest;
 use App\Http\Requests\ReplyStoreRequest;
 use App\Http\Requests\ReplyUpdateRequest;
@@ -46,7 +46,7 @@ class ReplyApiController extends Controller
                 "data"=>$reply
             ]);
         }
-        return $this->respondError("Store Reply Failed");
+        return $this->respondError("Store Answer Failed");
 
     }
     //store a nested reply
@@ -57,7 +57,7 @@ class ReplyApiController extends Controller
                 "data"=>$reply
             ]);
         }
-        return $this->respondError("Store Reply Failed");
+        return $this->respondError("Store Answer Failed");
 
     }
     //store a reply

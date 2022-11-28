@@ -11,6 +11,6 @@ class Tag extends Model
         "name"
     ];
     function articles(){
-        return $this->belongsToMany(Article::class);
+        return $this->belongsToMany(Question::class);
     }
 }

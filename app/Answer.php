@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Reply extends Model
+class Answer extends Model
 {
     //
-    protected $fillable = ['body', 'article_id','user_id','parent_id'];
+    protected $fillable = ['body', 'question_id','user_id','parent_id'];
 
-    public function article(){
-       return $this->belongsTo(Article::class);
+    public function question(){
+       return $this->belongsTo(Question::class);
     }
     public function user(){
         return $this->belongsTo(User::class);
@@ -18,10 +18,10 @@ class Reply extends Model
 
     public function replies()
     {
-        return $this->hasMany('App\Reply', 'parent_id');
+        return $this->hasMany('App\Answer', 'parent_id');
     }
     public function parent(){
-        return $this->belongsTo('App\Reply','parent_id');
+        return $this->belongsTo('App\Answer','parent_id');
     }
 
     public function images()
