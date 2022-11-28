@@ -12,9 +12,9 @@
           <hr/>
       </div>
       <div class="col-12 col-md-8">
-          <div class="font-weight-bolder mb-4 d-flex justify-content-between">
-              <h4>Questions</h4>
-              <a href="{{route('articles.create')}}" class="mr-0 mr-md-2 mt-2 text-white nav-link px-3 py-1">
+          <div class="font-weight-bolder mb-4 d-flex justify-content-between align-items-center">
+              <h4 class="mb-0">Questions</h4>
+              <a href="{{route('articles.create')}}" class="mr-0  text-white nav-link px-3 py-1">
                   <span>New Question <i class="fa fa-plus"></i> </span>
               </a>
           </div>

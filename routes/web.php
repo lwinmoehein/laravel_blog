@@ -29,11 +29,12 @@ Route::patch('articles/{id}','ArticleController@update')->name('articles.update'
 Route::get('articles/{id}','ArticleController@show')->name('articles.show');
 //article delete
 Route::delete('articles/{id}','ArticleController@destroy')->name('articles.delete');
+//vote
+Route::post('articles/vote','ArticleController@vote')->name('articles.vote');
+
 //article search
 Route::get('search/articles', 'SearchController@userList')->name('articles.search');
 
-//vote
-Route::resource('votes', 'VoteController');
 
 //notifications
 Route::resource('notifications', 'NotificationController');

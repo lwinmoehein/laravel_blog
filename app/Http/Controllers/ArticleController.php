@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Repositories\AchievementRepository;
 use App\Services\AchievementService;
+use App\Services\VoteService;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleStoreRequest;
 
@@ -15,6 +16,8 @@ use App\Repositories\UserRepository;
 use App\Services\ArticleService;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+
 class ArticleController extends Controller
 {
     protected $articleService;
@@ -23,7 +26,7 @@ class ArticleController extends Controller
     protected $userRepository;
     protected $achievementService;
     protected $achievementRepository;
-
+    protected $voteService;
     //constructor
     //args (article repo,tag repo)
     public function __construct(
@@ -31,7 +34,8 @@ class ArticleController extends Controller
         TagRepository $tagRepository,
         UserRepository $userRepository,
         AchievementService $achievementService,
-        AchievementRepository $achievementRepository
+        AchievementRepository $achievementRepository,
+        VoteService $voteService
     )
     {
         $this->articleService=new ArticleService(
@@ -43,6 +47,7 @@ class ArticleController extends Controller
         $this->userRepository=$userRepository;
         $this->articleRepository=$articleRepository;
         $this->tagRepository=$tagRepository;
+        $this->voteService = $voteService;
 
         $this->middleware('auth');
     }
@@ -124,6 +129,59 @@ class ArticleController extends Controller
         }
 
          return redirect()->back()->withErrors("ဖျက်ခွင့်မရှိပါ။");
+    }
 
+    public function vote(Request $request){
+        $isVoteSuccess = false;
+        $message = "";
+
+        $article = Article::where('id',$request->article_id)->get()->first();
+
+        if(Gate::inspect('vote', Article::class)->denied()){
+            return  redirect()->back()->withErrors("Vote ပေးနိုင်ခွင့်မရှိပါ။");
+        }
+
+
+        if($request->vote_type==1){
+            $response = Gate::inspect('upVote',$article);
+            if ($response->allowed()) {
+                $isUpvoted = $this->voteService->upvote($request->article_id);
+                $message = "Upvoted the article.";
+                $isVoteSuccess = $isUpvoted;
+            } else {
+                $message = $response->message();
+            }
+        }else if($request->vote_type==0){
+            $response = Gate::inspect('upVote', $article);
+            if ($response->allowed()) {
+                $isUpvoteRemoved = $this->voteService->removeUpVote($request->article_id);
+                $message = "Upvoted removed.";
+                $isVoteSuccess = $isUpvoteRemoved;
+            } else {
+                $message = $response->message();
+            }
+        }else if($request->vote_type==-1){
+            $response = Gate::inspect('downVote', $article);
+            if ($response->allowed()) {
+                $isDownVoted = $this->voteService->downVote($request->article_id);
+                $message = "Downvoted the article.";
+                $isVoteSuccess = $isDownVoted;
+            } else {
+                $message = $response->message();
+            }
+        }else{
+            $response = Gate::inspect('downVote', $article);
+            if ($response->allowed()) {
+                $isDownVoteRemoved = $this->voteService->removeDownVote($request->article_id);
+                $message = "Removed the downvote.";
+                $isVoteSuccess = $isDownVoteRemoved;
+            } else {
+                $message = $response->message();
+            }
+        }
+        if(!$isVoteSuccess) {
+            return redirect()->back()->withErrors($message);
+        }
+        return redirect()->back()->with('message',$message);
     }
 }
