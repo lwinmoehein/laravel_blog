@@ -4,18 +4,18 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ArticleComponent extends Component
+class QuestionComponent extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $article;
-    public function __construct($article)
+    public $question;
+    public function __construct($question)
     {
         //
-        $this->article=$article;
+        $this->question=$question;
     }
 
     /**
@@ -25,6 +25,6 @@ class ArticleComponent extends Component
      */
     public function render()
     {
-        return view('components.article-component');
+        return view('components.question-component');
     }
 }

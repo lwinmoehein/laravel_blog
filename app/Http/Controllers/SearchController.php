@@ -22,7 +22,7 @@ class SearchController extends Controller
         }else{
             $articles = null;
         }
-        return view('articles.search',compact('articles'));
+        return view('questions.search',compact('articles'));
     }
 
 }

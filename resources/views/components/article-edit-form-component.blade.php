@@ -1,5 +1,5 @@
 <div>
-    <form action="{{route('articles.update',$article->id)}}" method="POST">
+    <form action="{{route('questions.update',$article->id)}}" method="POST">
         @csrf
         @method('patch')
         <div class="form-group row">

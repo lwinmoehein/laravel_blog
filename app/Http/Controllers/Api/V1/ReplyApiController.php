@@ -7,8 +7,8 @@ use App\Services\AchievementService;
 use F9Web\ApiResponseHelpers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Repositories\ReplyRepository;
-use App\Services\ReplyService;
+use App\Repositories\AnswerRepository;
+use App\Services\AnswerService;
 use App\Question;
 use App\Http\Requests\ReplyDeleteRequest;
 use App\Http\Requests\ReplyStoreRequest;
@@ -26,12 +26,12 @@ class ReplyApiController extends Controller
     protected $achievementRepository;
 
     public function __construct(
-        ReplyRepository $replyRepository,
-        AchievementService $achievementService,
+        AnswerRepository      $replyRepository,
+        AchievementService    $achievementService,
         AchievementRepository $achievementRepository
     ){
         $this->replyRepository=$replyRepository;
-        $this->replyService=new ReplyService(
+        $this->replyService=new AnswerService(
             $replyRepository,
             $achievementRepository,
             $achievementService

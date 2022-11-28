@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 /**
- * Class ReplyRepository.
+ * Class AnswerRepository.
  */
 class NotificationRepository
 {

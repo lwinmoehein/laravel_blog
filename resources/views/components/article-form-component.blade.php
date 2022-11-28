@@ -3,7 +3,7 @@
         <x-image-upload-form-component/>
 
      </div>
-     <form action="{{route('articles.store')}}" method="post" id="newarticle" class="">
+     <form action="{{route('questions.store')}}" method="post" id="newarticle" class="">
         <form  class="">
         @csrf
         @method('put')

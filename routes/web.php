@@ -16,24 +16,24 @@ use Illuminate\Support\Facades\App;
 Auth::routes(['verify' => true]);
 
 
-Route::get('/home', 'ArticleController@index')->name('articles.index');
-Route::get('/', 'ArticleController@index')->name('articles.index');
-Route::get('articles','ArticleController@index')->name('articles.index');
+Route::get('/home', 'QuestionController@index')->name('questions.index');
+Route::get('/', 'QuestionController@index')->name('questions.index');
+Route::get('questions','QuestionController@index')->name('questions.index');
 //article create new
-Route::get('articles/create','ArticleController@create')->name('articles.create');
-Route::put('articles','ArticleController@store')->name('articles.store');
+Route::get('questions/create','QuestionController@create')->name('questions.create');
+Route::put('questions','QuestionController@store')->name('questions.store');
 //article edit existing
-Route::get('articles/{id}/edit','ArticleController@edit')->name('articles.edit');
-Route::patch('articles/{id}','ArticleController@update')->name('articles.update');
+Route::get('questions/{id}/edit','QuestionController@edit')->name('questions.edit');
+Route::patch('questions/{id}','QuestionController@update')->name('questions.update');
 //article show one
-Route::get('articles/{id}','ArticleController@show')->name('articles.show');
+Route::get('questions/{id}','QuestionController@show')->name('questions.show');
 //article delete
-Route::delete('articles/{id}','ArticleController@destroy')->name('articles.delete');
+Route::delete('questions/{id}','QuestionController@destroy')->name('questions.delete');
 //vote
-Route::post('articles/vote','ArticleController@vote')->name('articles.vote');
+Route::post('questions/vote','QuestionController@vote')->name('questions.vote');
 
 //article search
-Route::get('search/articles', 'SearchController@userList')->name('articles.search');
+Route::get('search/questions', 'SearchController@userList')->name('questions.search');
 
 
 //notifications

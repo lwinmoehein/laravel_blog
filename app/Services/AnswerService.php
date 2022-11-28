@@ -8,10 +8,10 @@ use App\Answer;
 use App\Http\Requests\ReplyStoreRequest;
 use App\Http\Requests\ReplyUpdateRequest;
 use App\Repositories\AchievementRepository;
-use App\Repositories\ReplyRepository;
+use App\Repositories\AnswerRepository;
 use Illuminate\Support\Facades\Auth;
 
-class ReplyService
+class AnswerService
 {
     protected $replyRepository;
     protected $achievementRepository;
@@ -19,7 +19,7 @@ class ReplyService
 
 
     public function __construct(
-        ReplyRepository       $replyRepository,
+        AnswerRepository      $replyRepository,
         AchievementRepository $achievementRepository,
         AchievementService    $achievementService
     )

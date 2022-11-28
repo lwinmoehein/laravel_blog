@@ -4,12 +4,12 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ArticleListComponent extends Component
+class QuestionListComponent extends Component
 {
-    public $articles;
-    public function __construct($articles)
+    public $questions;
+    public function __construct($questions)
     {
-        $this->articles=$articles;
+        $this->questions=$questions;
         //
     }
 
@@ -20,6 +20,6 @@ class ArticleListComponent extends Component
      */
     public function render()
     {
-        return view('components.article-list-component');
+        return view('components.question-list-component');
     }
 }

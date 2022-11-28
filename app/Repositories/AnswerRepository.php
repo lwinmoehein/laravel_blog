@@ -6,10 +6,10 @@ use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 //use Your Model
 
 /**
- * Class ReplyRepository.
+ * Class AnswerRepository.
  */
 use App\Answer;
-class ReplyRepository
+class AnswerRepository
 {
     /**
      * @return string
@@ -25,6 +25,6 @@ class ReplyRepository
     }
 
     public function getRelatedReplies($id){
-        return Answer::find($id)->article->replies;
+        return Answer::find($id)->question->replies;
     }
 }

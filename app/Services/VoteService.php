@@ -15,38 +15,38 @@ class VoteService
         $this->repository=$repository;
     }
 
-    public function upVote($articleId){
+    public function upVote($questionId){
 
-        Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',-1)->delete();
+        Vote::where('question_id',$questionId)->where('voter_id',auth()->user()->id)->where('value',-1)->delete();
 
         Vote::create([
-            "article_id"=>$articleId,
+            "question_id"=>$questionId,
             "voter_id"=>auth()->user()->id,
             "value"=>1
         ]);
         return  true;
     }
 
-    public function downVote($articleId){
+    public function downVote($questionId){
 
 
-        Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',1)->delete();
+        Vote::where('question_id',$questionId)->where('voter_id',auth()->user()->id)->where('value',1)->delete();
         Vote::create([
-            "article_id"=>$articleId,
+            "question_id"=>$questionId,
             "voter_id"=>auth()->user()->id,
             "value"=>-1
         ]);
         return  true;
     }
-    public function removeDownVote($articleId){
+    public function removeDownVote($questionId){
 
-        Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',-1)->delete();
+        Vote::where('question_id',$questionId)->where('voter_id',auth()->user()->id)->where('value',-1)->delete();
 
         return true;
     }
-    public function removeUpVote($articleId){
+    public function removeUpVote($questionId){
 
-        Vote::where('article_id',$articleId)->where('voter_id',auth()->user()->id)->where('value',1)->delete();
+        Vote::where('question_id',$questionId)->where('voter_id',auth()->user()->id)->where('value',1)->delete();
 
         return true;
     }

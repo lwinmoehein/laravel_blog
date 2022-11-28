@@ -9,7 +9,7 @@ use App\Http\Requests\ArticleStoreRequest;
 use App\Image;
 use Illuminate\Support\Facades\DB;
 
-class ArticleService
+class QuestionService
 {
     protected $articleRepository;
     protected $achievementRepository;

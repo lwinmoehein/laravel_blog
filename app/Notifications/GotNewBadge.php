@@ -48,7 +48,7 @@ class GotNewBadge extends Notification
                     ->line('၀မ်းသာပါတယ် '.$this->user->name.' ရေ')
                     ->line($this->badge->name.' ဆိုတဲ့ Badge အသစ်ကို ရသွားပါပြီ။')
                     ->line('ယခုအချိန်ကစပြီး '.$this->badge->description)
-                    ->action('Vote တွေစပေးမယ်', url(route('articles.index')))
+                    ->action('Vote တွေစပေးမယ်', url(route('questions.index')))
             ;
     }
 

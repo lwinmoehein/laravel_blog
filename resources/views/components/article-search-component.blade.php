@@ -2,7 +2,7 @@
         <div class="col-md-8 px-0">
             <div>
                 <div>
-                    <form class="container" method="GET" action="{{ route('articles.search') }}">
+                    <form class="container" method="GET" action="{{ route('questions.search') }}">
                         <div class="row">
                             <div class="col-8 col-md-8 w-100 pl-0">
                                 <input type="text" name="search" class="form-control col"
@@ -20,7 +20,7 @@
                             @if ($articles->count())
                                 @foreach ($articles as $key => $item)
                                     <div class="py-1">
-                                        <a href="{{ route('articles.show', $item->id) }}">{{ $item->title }}</a>
+                                        <a href="{{ route('questions.show', $item->id) }}">{{ $item->title }}</a>
                                     </div>
                                 @endforeach
                             @else

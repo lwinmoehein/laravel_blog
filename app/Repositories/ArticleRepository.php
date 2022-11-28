@@ -19,9 +19,9 @@ class ArticleRepository
         }
     }
 
-    public function get($article_id)
+    public function get($questionId)
     {
-        return Question::findOrFail($article_id);
+        return Question::findOrFail($questionId);
     }
 
     public function search(Request $request){

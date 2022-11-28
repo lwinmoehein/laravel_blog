@@ -13,15 +13,15 @@ use App\Repositories\ArticleRepository;
 use App\Repositories\TagRepository;
 use App\Repositories\UserRepository;
 
-use App\Services\ArticleService;
+use App\Services\QuestionService;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class ArticleController extends Controller
+class QuestionController extends Controller
 {
-    protected $articleService;
-    protected $articleRepository;
+    protected $questionService;
+    protected $questionRepository;
     protected $tagRepository;
     protected $userRepository;
     protected $achievementService;
@@ -30,49 +30,49 @@ class ArticleController extends Controller
     //constructor
     //args (article repo,tag repo)
     public function __construct(
-        ArticleRepository $articleRepository,
-        TagRepository $tagRepository,
-        UserRepository $userRepository,
-        AchievementService $achievementService,
+        ArticleRepository     $questionRepository,
+        TagRepository         $tagRepository,
+        UserRepository        $userRepository,
+        AchievementService    $achievementService,
         AchievementRepository $achievementRepository,
-        VoteService $voteService
+        VoteService           $voteService
     )
     {
-        $this->articleService=new ArticleService(
-            $articleRepository,
+        $this->questionService=new QuestionService(
+            $questionRepository,
             $achievementRepository,
             $achievementService
         );
 
         $this->userRepository=$userRepository;
-        $this->articleRepository=$articleRepository;
+        $this->questionRepository=$questionRepository;
         $this->tagRepository=$tagRepository;
         $this->voteService = $voteService;
 
         $this->middleware('auth');
     }
 
-    //get all paginated articles
+    //get all paginated questions
     public function index(Request $request)
     {
-        $articles=$this->articleRepository->all($request->tag);
+        $questions=$this->questionRepository->all($request->tag);
         $tags = $this->tagRepository->all();
-        return view('articles.index',compact(['articles','tags']));
+        return view('questions.index',compact(['questions','tags']));
     }
 
     //get one article
     public function show($id)
     {
         //
-        $article=$this->articleRepository->get($id);
-        return view('articles.detail',['article'=>$article]);
+        $article=$this->questionRepository->get($id);
+        return view('questions.detail',['article'=>$article]);
     }
 
     //store an article
     public function store(ArticleStoreRequest $request)
     {
         //
-        $article=$this->articleService->store($request);
+        $article=$this->questionService->store($request);
         return redirect('/')->with('message', 'New Question Added!');
     }
     //create new article (view)
@@ -81,7 +81,7 @@ class ArticleController extends Controller
         //
 
         if (auth()->user()->can('store', Question::class)) {
-            return view('articles.new',['tags'=>$this->tagRepository->all()]);
+            return view('questions.new',['tags'=>$this->tagRepository->all()]);
         }
         return redirect()->back()->withErrors("မေးခွန်းများမေးနိုင်ရန် email address အား verify လုပ်ပေးပါ။");
 
@@ -91,12 +91,12 @@ class ArticleController extends Controller
     public function edit($id)
     {
 
-        $article=$this->articleRepository->get($id);
+        $article=$this->questionRepository->get($id);
 
         if (auth()->user()->can('modify', $article)) {
             $tags=$this->tagRepository->all();
-            $article=$this->articleRepository->get($id);
-            return view('articles.new',compact('tags','article'));
+            $article=$this->questionRepository->get($id);
+            return view('questions.new',compact('tags','article'));
         }
 
         return redirect()->back()->withErrors('မေးခွန်းအားပြင်ခွင့်မရှိပါ။');
@@ -107,10 +107,10 @@ class ArticleController extends Controller
     public function update(ArticleStoreRequest $request, $id)
     {
         //
-        $article = $this->articleRepository->get($id);
+        $article = $this->questionRepository->get($id);
 
         if (auth()->user()->can('modify', $article)) {
-            $this->articleService->update($request,$id);
+            $this->questionService->update($request,$id);
             return redirect()->back()->with('message','မေးခွန်းအားပြင်လိုက်ပါပြီ။');
         }
 
@@ -121,11 +121,11 @@ class ArticleController extends Controller
     //delete an article
     public function destroy($id)
     {
-        $article = $this->articleRepository->get($id);
+        $article = $this->questionRepository->get($id);
 
         if (auth()->user()->can('modify', $article)) {
-            $this->articleService->delete($id);
-            return redirect()->route('articles.index')->with('message','မေးခွန်းအားဖျက်လိုက်ပါပြီ။');
+            $this->questionService->delete($id);
+            return redirect()->route('questions.index')->with('message','မေးခွန်းအားဖျက်လိုက်ပါပြီ။');
         }
 
          return redirect()->back()->withErrors("ဖျက်ခွင့်မရှိပါ။");
