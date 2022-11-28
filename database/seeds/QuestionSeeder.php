@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ArticleSeeder extends Seeder
+class QuestionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
