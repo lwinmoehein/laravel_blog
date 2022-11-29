@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Question;
 use Symfony\Component\HttpFoundation\Request;
 use App\Tag;
-class ArticleRepository
+class QuestionRepository
 {
     public function all($tag=null)
     {

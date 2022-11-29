@@ -4,18 +4,19 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ArticleDetailComponent extends Component
+class NestedAnswerListComponent extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $article;
-    public function __construct($article)
+    public $answers;
+
+    public function __construct($answers)
     {
         //
-        $this->article=$article;
+        $this->answers=$answers;
     }
 
     /**
@@ -25,6 +26,6 @@ class ArticleDetailComponent extends Component
      */
     public function render()
     {
-        return view('components.article-detail-component');
+        return view('components.nested-answer-list-component');
     }
 }

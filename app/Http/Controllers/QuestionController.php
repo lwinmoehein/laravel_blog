@@ -7,9 +7,9 @@ use App\Repositories\AchievementRepository;
 use App\Services\AchievementService;
 use App\Services\VoteService;
 use Illuminate\Http\Request;
-use App\Http\Requests\ArticleStoreRequest;
+use App\Http\Requests\QuestionStoreRequest;
 
-use App\Repositories\ArticleRepository;
+use App\Repositories\QuestionRepository;
 use App\Repositories\TagRepository;
 use App\Repositories\UserRepository;
 
@@ -30,7 +30,7 @@ class QuestionController extends Controller
     //constructor
     //args (article repo,tag repo)
     public function __construct(
-        ArticleRepository     $questionRepository,
+        QuestionRepository    $questionRepository,
         TagRepository         $tagRepository,
         UserRepository        $userRepository,
         AchievementService    $achievementService,
@@ -64,16 +64,19 @@ class QuestionController extends Controller
     public function show($id)
     {
         //
-        $article=$this->questionRepository->get($id);
-        return view('questions.detail',['article'=>$article]);
+        $question=$this->questionRepository->get($id);
+        return view('questions.detail',['question'=>$question]);
     }
 
     //store an article
-    public function store(ArticleStoreRequest $request)
+    public function store(QuestionStoreRequest $request)
     {
         //
-        $article=$this->questionService->store($request);
-        return redirect('/')->with('message', 'New Question Added!');
+        $question=$this->questionService->store($request);
+
+        if(!$question)
+            return  redirect('/')->withErrors('မေးခွန်းမေးခြင်း မအောင်မြင်ပါ။');
+        return redirect('/')->with('message', 'မေးခွန်းအသစ်မေးလိုက်ပါပြီ။');
     }
     //create new article (view)
     public function create()
@@ -91,12 +94,12 @@ class QuestionController extends Controller
     public function edit($id)
     {
 
-        $article=$this->questionRepository->get($id);
+        $question=$this->questionRepository->get($id);
 
-        if (auth()->user()->can('modify', $article)) {
+        if (auth()->user()->can('modify', $question)) {
             $tags=$this->tagRepository->all();
-            $article=$this->questionRepository->get($id);
-            return view('questions.new',compact('tags','article'));
+            $question=$this->questionRepository->get($id);
+            return view('questions.new',compact('tags','question'));
         }
 
         return redirect()->back()->withErrors('မေးခွန်းအားပြင်ခွင့်မရှိပါ။');
@@ -104,12 +107,12 @@ class QuestionController extends Controller
     }
 
     //update article data
-    public function update(ArticleStoreRequest $request, $id)
+    public function update(QuestionStoreRequest $request, $id)
     {
         //
-        $article = $this->questionRepository->get($id);
+        $question = $this->questionRepository->get($id);
 
-        if (auth()->user()->can('modify', $article)) {
+        if (auth()->user()->can('modify', $question)) {
             $this->questionService->update($request,$id);
             return redirect()->back()->with('message','မေးခွန်းအားပြင်လိုက်ပါပြီ။');
         }
@@ -121,9 +124,9 @@ class QuestionController extends Controller
     //delete an article
     public function destroy($id)
     {
-        $article = $this->questionRepository->get($id);
+        $question = $this->questionRepository->get($id);
 
-        if (auth()->user()->can('modify', $article)) {
+        if (auth()->user()->can('modify', $question)) {
             $this->questionService->delete($id);
             return redirect()->route('questions.index')->with('message','မေးခွန်းအားဖျက်လိုက်ပါပြီ။');
         }
@@ -135,7 +138,7 @@ class QuestionController extends Controller
         $isVoteSuccess = false;
         $message = "";
 
-        $article = Question::where('id',$request->article_id)->get()->first();
+        $question = Question::where('id',$request->article_id)->get()->first();
 
         if(Gate::inspect('vote', Question::class)->denied()){
             return  redirect()->back()->withErrors("Vote ပေးနိုင်ခွင့်မရှိပါ။");
@@ -143,7 +146,7 @@ class QuestionController extends Controller
 
 
         if($request->vote_type==1){
-            $response = Gate::inspect('upVote',$article);
+            $response = Gate::inspect('upVote',$question);
             if ($response->allowed()) {
                 $isUpvoted = $this->voteService->upvote($request->article_id);
                 $message = "Upvoted the article.";
@@ -152,7 +155,7 @@ class QuestionController extends Controller
                 $message = $response->message();
             }
         }else if($request->vote_type==0){
-            $response = Gate::inspect('upVote', $article);
+            $response = Gate::inspect('upVote', $question);
             if ($response->allowed()) {
                 $isUpvoteRemoved = $this->voteService->removeUpVote($request->article_id);
                 $message = "Upvoted removed.";
@@ -161,7 +164,7 @@ class QuestionController extends Controller
                 $message = $response->message();
             }
         }else if($request->vote_type==-1){
-            $response = Gate::inspect('downVote', $article);
+            $response = Gate::inspect('downVote', $question);
             if ($response->allowed()) {
                 $isDownVoted = $this->voteService->downVote($request->article_id);
                 $message = "Downvoted the article.";
@@ -170,7 +173,7 @@ class QuestionController extends Controller
                 $message = $response->message();
             }
         }else{
-            $response = Gate::inspect('downVote', $article);
+            $response = Gate::inspect('downVote', $question);
             if ($response->allowed()) {
                 $isDownVoteRemoved = $this->voteService->removeDownVote($request->article_id);
                 $message = "Removed the downvote.";

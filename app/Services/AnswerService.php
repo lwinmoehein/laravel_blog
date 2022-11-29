@@ -5,8 +5,8 @@ use App\Achievement;
 use App\Question;
 use App\Notifications\GotNewAchievement;
 use App\Answer;
-use App\Http\Requests\ReplyStoreRequest;
-use App\Http\Requests\ReplyUpdateRequest;
+use App\Http\Requests\AnswerStoreRequest;
+use App\Http\Requests\AnswerUpdateRequest;
 use App\Repositories\AchievementRepository;
 use App\Repositories\AnswerRepository;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,7 @@ class AnswerService
         return true;
     }
 
-    public function store(ReplyStoreRequest $request){
+    public function store(AnswerStoreRequest $request){
         if(!auth()->user()->can('store',Answer::class)){
             return  false;
         }
@@ -59,7 +59,7 @@ class AnswerService
         return true;
     }
 
-    public function storenested(ReplyStoreRequest $request){
+    public function storenested(AnswerStoreRequest $request){
         if(!auth()->user()->can('store',Answer::class)){
             return  false;
         }
@@ -70,7 +70,7 @@ class AnswerService
         return true;
     }
 
-    public function update(ReplyUpdateRequest $request){
+    public function update(AnswerUpdateRequest $request){
         $reply = Answer::findOrFail($request->id);
 
         if(!auth()->user()->can('modify',$reply)){

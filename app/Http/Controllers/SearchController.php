@@ -3,13 +3,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Question;
-use App\Repositories\ArticleRepository;
+use App\Repositories\QuestionRepository;
 use Illuminate\Http\Request;
 class SearchController extends Controller
 {
     protected $articleRepository;
 
-    public function __construct(ArticleRepository $articleRepository)
+    public function __construct(QuestionRepository $articleRepository)
     {
         $this->articleRepository=$articleRepository;
     }

@@ -4,18 +4,16 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ReplyListComponent extends Component
+class AnswerEditDialogComponent extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $article;
-    public function __construct($article)
+    public function __construct()
     {
         //
-        $this->article=$article;
     }
 
     /**
@@ -25,6 +23,6 @@ class ReplyListComponent extends Component
      */
     public function render()
     {
-        return view('components.reply-list-component');
+        return view('components.answer-edit-dialog-component');
     }
 }

@@ -4,18 +4,18 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ReplyItemComponent extends Component
+class AnswerListComponent extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $reply;
-    public function __construct($reply)
+    public $question;
+    public function __construct($question)
     {
         //
-        $this->reply=$reply;
+        $this->question=$question;
     }
 
     /**
@@ -25,6 +25,6 @@ class ReplyItemComponent extends Component
      */
     public function render()
     {
-        return view('components.reply-item-component');
+        return view('components.answer-list-component');
     }
 }

@@ -1,100 +1,32 @@
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
 require('./bootstrap');
-const alert = require("bootstrap/js/src/alert");
-window.$ = window.jQuery = require('jquery');
 
-//upload image
-function uploadImage(){
-    $image=$('#imgInp').val();
-    return "hola";
-}
+window.Vue = require('vue');
 
-//create new comment
-$('#comment').on('click',function(e){
-    e.preventDefault();
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ */
 
-    axios(
-        "/api/replies/create",{
-            method:"PUT",
-            params: {
-                article_id:$('#article_id').val(),
-                body:$('#body').val(),
-            },
-        }).then(res=>{
-         window.location.reload();
-    })
+// const files = require.context('./', true, /\.vue$/i)
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+const app = new Vue({
+    el: '#app',
 });
-
-//delete comment
-$('#reply-list').on('click','.reply-delete-btn',function() {
-    axios(
-        "/api/replies/delete",{
-        method:"DELETE",
-            params: {
-                id: $(this).attr('id')
-            },
-    }).then(res=>{
-        window.location.reload();
-    })
-});
-
-
-
-//edit comment
-$('#reply-list').on('click','.reply-edit-btn',function(e) {
-    e.preventDefault;
-
-    let reply_id=$(this).attr('id');
-
-    $(this).siblings('.text-form').css('display','none');
-
-    $(this).siblings('.comment-edit-form').css('display','block');
-    $(this).siblings('.comment-edit-form').find('.update').click(function(){
-        let edited_reply_body=$(this).siblings('.reply-edit-textarea').val();
-
-        axios(
-            "/api/replies",{
-                method:"PATCH",
-                params: {
-                    id:reply_id,
-                    body:edited_reply_body
-                },
-            }).then(res=>{
-            window.location.reload();
-        })
-    });
-
-
-
-});
-
-//reply to a comment
-$('#reply-list').on('click','.reply-reply-btn',function(e) {
-    e.preventDefault;
-
-    let reply_id=$(this).attr('id');
-
-    $(this).siblings('.text-form').css('display','none');
-
-    $(this).siblings('.comment-reply-form').css('display','block');
-    $(this).siblings('.comment-reply-form').find('.reply').click(function(){
-        let reply_body=$(this).siblings('.reply-reply-textarea').val();
-        let article_id=$(this).data('article-id');
-
-        console.log(article_id);
-
-        axios(
-            "/api/replies/nested",{
-                method:"PUT",
-                params: {
-                            id:reply_id,
-                            body:reply_body,
-                            article_id:article_id
-                },
-            }).then(res=>{
-            window.location.reload();
-        })
-
-    });
-
-});
-

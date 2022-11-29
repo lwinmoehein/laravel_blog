@@ -1,6 +1,6 @@
 <div>
      @forelse ($questions as $question)
-        <x-article-component :question="$question"/>
+        <x-question-component :question="$question"/>
      @empty
         <h4 class="text-secondary">No questions were found.</h4>
      @endforelse

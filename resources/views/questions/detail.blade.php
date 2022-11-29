@@ -16,7 +16,7 @@
 
 <x-message-notification-component/>
 <x-error-notification-component/>
-<x-article-detail-component :article="$article"/>
+<x-question-detail-component :question="$question"/>
 
 @endsection
 

@@ -25,6 +25,6 @@ class AnswerRepository
     }
 
     public function getRelatedReplies($id){
-        return Answer::find($id)->question->replies;
+        return Answer::find($id)->question->answers;
     }
 }

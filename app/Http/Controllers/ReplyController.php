@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 use App\Repositories\AnswerRepository;
 use App\Services\AnswerService;
 use App\Question;
-use App\Http\Requests\ReplyDeleteRequest;
-use App\Http\Requests\ReplyStoreRequest;
-use App\Http\Requests\ReplyUpdateRequest;
+use App\Http\Requests\AnswerDeleteRequest;
+use App\Http\Requests\AnswerStoreRequest;
+use App\Http\Requests\AnswerUpdateRequest;
 
 class ReplyController extends Controller
 {
@@ -38,7 +38,7 @@ class ReplyController extends Controller
 
     }
     //store a reply
-    public function store(ReplyStoreRequest $request){
+    public function store(AnswerStoreRequest $request){
         $reply=$this->replyService->store($request);
         dd($reply);
         if($reply){
@@ -47,7 +47,7 @@ class ReplyController extends Controller
         return "error";
     }
     //store a nested reply
-    public function storenested(ReplyStoreRequest $request){
+    public function storenested(AnswerStoreRequest $request){
         $reply=$this->replyService->storenested($request);
         if($reply){
             return view('components.reply-list-component',['article'=>$reply->article]);
@@ -55,7 +55,7 @@ class ReplyController extends Controller
         return "error";
     }
      //store a reply
-     public function update(ReplyUpdateRequest $request){
+     public function update(AnswerUpdateRequest $request){
 
          if(Auth::user()->can('update',$this->replyRepository->get($request->id))){
 
@@ -70,7 +70,7 @@ class ReplyController extends Controller
     }
 
     //delete a reply from model
-    public function destroy(ReplyDeleteRequest $request){
+    public function destroy(AnswerDeleteRequest $request){
         $article=$this->replyRepository->get($request->id)->article;
 
         if(Auth::user()->can('delete',$this->replyRepository->get($request->id))){

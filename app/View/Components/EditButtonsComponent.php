@@ -11,11 +11,11 @@ class EditButtonsComponent extends Component
      *
      * @return void
      */
-     public $article;
-    public function __construct($article)
+     public $question;
+    public function __construct($question)
     {
         //
-        $this->article=$article;
+        $this->$question=$question;
     }
 
     /**

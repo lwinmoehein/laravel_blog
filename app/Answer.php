@@ -16,7 +16,7 @@ class Answer extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function replies()
+    public function answers()
     {
         return $this->hasMany('App\Answer', 'parent_id');
     }

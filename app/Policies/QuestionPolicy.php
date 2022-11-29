@@ -21,9 +21,9 @@ class QuestionPolicy
         //
 
     }
-    public function modify(?User $user, Question $article)
+    public function modify(?User $user, Question $question)
     {
-        return $user->email_verified_at!=null && $article->user_id == $user->id;
+        return $user->email_verified_at!=null && $question->user_id == $user->id;
     }
     public function store(?User $user){
         return $user->email_verified_at!=null;
@@ -33,14 +33,14 @@ class QuestionPolicy
         return $user->email_verified_at!=null;
     }
 
-    public function upVote(User $user, Question $article)
+    public function upVote(User $user, Question $question)
     {
-        return $user->id == $article->user_id? Response::allow()
-            : Response::deny('Cannot upvote your own post.');
+        return $user->id == $question->user_id? Response::allow()
+            : Response::deny('Cannot upvote your own question.');
     }
-    public function downVote(?User $user, Question $article)
+    public function downVote(?User $user, Question $question)
     {
-        return $user->id == $article->user_id? Response::allow()
-            : Response::deny('Cannot downvote your own post.');
+        return $user->id == $question->user_id? Response::allow()
+            : Response::deny('Cannot downvote your own question.');
     }
 }

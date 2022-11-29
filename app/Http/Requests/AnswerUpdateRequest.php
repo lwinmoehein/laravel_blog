@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReplyDeleteRequest extends FormRequest
+class AnswerUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class ReplyDeleteRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer',
+            //
+            'id'=>'required|integer',
+            'body'=>'required|max:200|string'
         ];
     }
 }

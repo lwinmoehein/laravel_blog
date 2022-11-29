@@ -7,6 +7,7 @@ use Illuminate\View\Component;
 class QuestionListComponent extends Component
 {
     public $questions;
+
     public function __construct($questions)
     {
         $this->questions=$questions;

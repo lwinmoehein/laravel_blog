@@ -40,11 +40,11 @@ Route::get('search/questions', 'SearchController@userList')->name('questions.sea
 Route::resource('notifications', 'NotificationController');
 
 
-//article reply routes
-Route::put('replies/create','ReplyController@store')->name('replies.store');
-Route::delete('replies/delete','ReplyController@destroy')->name('replies.delete');
-Route::patch('replies','ReplyController@update')->name('replies.update');
-Route::put('replies/nested','ReplyController@storenested')->name('replies.nested');
+//article Answer routes
+Route::put('answers/create','AnswerController@store')->name('answers.store');
+Route::delete('answers/delete','AnswerController@destroy')->name('answers.delete');
+Route::patch('answers','AnswerController@update')->name('answers.update');
+Route::put('answers/nested','AnswerController@storenested')->name('answers.nested');
 
 //image routes
 Route::post('images/store','ImageController@store')->name('images.store');

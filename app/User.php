@@ -37,10 +37,10 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    function articles(){
+    function questions(){
         return $this->hasMany(Question::class);
     }
-    function replies(){
+    function answers(){
         return $this->hasMany(Answer::class);
     }
     public function images()

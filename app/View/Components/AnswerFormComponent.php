@@ -4,18 +4,18 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class NestedReplyListComponent extends Component
+class AnswerFormComponent extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $replies;
-    public function __construct($replies)
+    public $question;
+    public function __construct($question)
     {
         //
-        $this->replies=$replies;
+        $this->question=$question;
     }
 
     /**
@@ -25,6 +25,6 @@ class NestedReplyListComponent extends Component
      */
     public function render()
     {
-        return view('components.nested-reply-list-component');
+        return view('components.answer-form-component');
     }
 }
