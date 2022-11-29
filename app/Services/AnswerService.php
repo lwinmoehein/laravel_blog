@@ -45,7 +45,7 @@ class AnswerService
             return  false;
         }
 
-        $isNotFirstTime  = auth()->user()->replies()->exists();
+        $isNotFirstTime  = auth()->user()->answers()->exists();
         $newTeacherAchievement = $this->achievementRepository->getByNameOrNull("ဖြေကြားသူ");
 
         if(!$isNotFirstTime && !$this->achievementRepository->isExist(auth()->user(),$newTeacherAchievement)){

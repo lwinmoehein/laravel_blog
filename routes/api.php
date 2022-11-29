@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\ReplyApiController;
+use App\Http\Controllers\Api\V1\AnswerApiController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,10 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::namespace('Api\V1')->middleware(['auth:sanctum'])->group(function () {
-    Route::put('replies/create','ReplyApiController@store')->name('api.replies.store');
-    Route::delete('replies/delete','ReplyApiController@destroy')->name('api.replies.delete');
-    Route::patch('replies','ReplyApiController@update')->name('api.replies.update');
-    Route::put('replies/nested','ReplyApiController@storenested')->name('api.replies.nested');
+    Route::get('questions/{question}/answers','QuestionApiController@answers')->name('api.questions.answers');
+    Route::post('questions/{question}/answers','QuestionApiController@storeAnswer')->name('api.questions.answers.store');
+
+    Route::put('answers/create','AnswerApiController@store')->name('api.answers.store');
+    Route::delete('answers/delete','AnswerApiController@destroy')->name('api.answers.delete');
+    Route::patch('answers','AnswerApiController@update')->name('api.answers.update');
+    Route::put('answers/nested','AnswerApiController@storenested')->name('api.answers.nested');
 
     Route::resource('votes','VoteApiController');
 });

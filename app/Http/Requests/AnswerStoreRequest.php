@@ -26,7 +26,7 @@ class AnswerStoreRequest extends FormRequest
         return [
             //
             'body' => 'required|string|max:100',
-            'article_id'=>'required|integer'
+            'question_id'=>'required|integer'
         ];
     }
 }
