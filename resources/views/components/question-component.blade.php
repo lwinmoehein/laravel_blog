@@ -19,7 +19,7 @@
         </div>
         <div class="col-10 col-md-11 d-flex flex-column justify-content-center">
             <div class="d-flex justify-content-between">
-                <a class="font-weight-bold" href="{{ route('questions.show', $question->id) }}">
+                <a class="font-weight-bold" href="{{ route('questions.show', $question->slug) }}">
                     {{ $question->title }}
                 </a>
                 <small class="">{{ $question->updated_at->diffForHumans() }}</small>

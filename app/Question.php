@@ -3,11 +3,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Question extends Model
 {
     //
     use Searchable;
+    use HasSlug;
 
 
     protected $fillable = ['title', 'body', 'user_id'];
@@ -57,5 +60,17 @@ class Question extends Model
     public function getIsDownVotedAttribute(){
         $downVotes =  Vote::where('question_id',$this->id)->where('voter_id',auth()->user()->id)->where('value',-1)->get();
         return count($downVotes)>=1;
+    }
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

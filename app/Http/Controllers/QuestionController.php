@@ -61,10 +61,10 @@ class QuestionController extends Controller
     }
 
     //get one article
-    public function show($id)
+    public function show(Question $question)
     {
         //
-        $question=$this->questionRepository->get($id);
+        $question=$this->questionRepository->get($question->id);
         return view('questions.detail',['question'=>$question]);
     }
 

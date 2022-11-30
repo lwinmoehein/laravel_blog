@@ -26,7 +26,7 @@ Route::put('questions','QuestionController@store')->name('questions.store');
 Route::get('questions/{id}/edit','QuestionController@edit')->name('questions.edit');
 Route::patch('questions/{id}','QuestionController@update')->name('questions.update');
 //article show one
-Route::get('questions/{id}','QuestionController@show')->name('questions.show');
+Route::get('questions/{question}','QuestionController@show')->name('questions.show');
 //article delete
 Route::delete('questions/{id}','QuestionController@destroy')->name('questions.delete');
 //vote
