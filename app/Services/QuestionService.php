@@ -7,13 +7,17 @@ use App\Repositories\AchievementRepository;
 use App\Repositories\QuestionRepository;
 use App\Http\Requests\QuestionStoreRequest;
 use App\Image;
+use App\Traits\SlugTrait;
 use Illuminate\Support\Facades\DB;
 
 class QuestionService
 {
+    use SlugTrait;
+
     protected $questionRepository;
     protected $achievementRepository;
     protected $achievementService;
+
 
     public function __construct(
         QuestionRepository    $questionRepository,
@@ -51,6 +55,7 @@ class QuestionService
             auth()->user()->notify(new GotNewAchievement($newStudentAchievement, auth()->user()));
 
             $question= new Question($request->validated());
+            $question->slug = $this->getSlugFromString($request->title);
             $question->fill(['user_id'=>auth()->id()])->save();
             $question->tags()->attach($request['tags']);
             $question->images()->save(new Image(['url'=>$request->image_url]));

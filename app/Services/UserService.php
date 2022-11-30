@@ -19,6 +19,7 @@ class UserService
     public function store($data){
         $user =  User::create([
             'name' => $data['name'],
+            'account_name'=>$data['account_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

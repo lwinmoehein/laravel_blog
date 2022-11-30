@@ -39,6 +39,9 @@ Route::get('search/questions', 'SearchController@userList')->name('questions.sea
 //notifications
 Route::resource('notifications', 'NotificationController');
 
+//users
+Route::resource('users', 'UserController');
+
 
 //article Answer routes
 Route::put('answers/create','AnswerController@store')->name('answers.store');

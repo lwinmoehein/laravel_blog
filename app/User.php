@@ -7,17 +7,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable,HasApiTokens;
+    use Notifiable;
+    use HasApiTokens;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name','account_name', 'email', 'password',
     ];
 
     /**
@@ -56,5 +59,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     function badges(){
         return $this->belongsToMany(Badge::class,'badge_user');
+    }
+
+
+    public function getRouteKeyName()
+    {
+        return 'account_name';
     }
 }

@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.4",
         "algolia/algoliasearch-client-php": "^2.7",
+        "cocur/slugify": "^4.2",
         "f9webltd/laravel-api-response-helpers": "^1.5",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
