@@ -8,9 +8,7 @@
                     </div>
                     <div v-else>
                        <div class="d-flex flex-column">
-                           <answer-component v-for="ans in answers" :key="ans.id" :answer="ans">
-                               {{ans.body}}
-                           </answer-component>
+                           <answer-component v-for="ans in answers" :key="ans.id" :answer="ans"/>
                        </div>
                     </div>
                 </div>

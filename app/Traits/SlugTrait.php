@@ -12,4 +12,7 @@ trait SlugTrait
 
         return preg_replace($twoOrMoreDashPattern,"-",$replacedStringWithDashes);
     }
+
+    function isUnique(){
+    }
 }

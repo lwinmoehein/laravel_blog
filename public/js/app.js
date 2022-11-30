@@ -1928,27 +1928,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AnswerComponent",
   props: {
@@ -2089,8 +2068,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
 //
 //
 //
@@ -38490,78 +38467,18 @@ var render = function() {
   return _c("div", { staticClass: "my-3 reply-item d-flex flex-column" }, [
     _c("p", { staticClass: "mb-0" }, [
       _c("span", { staticClass: "text-primary font-weight-bold" }, [
-        _vm._v(_vm._s(_vm.answer.user.name) + "  "),
-        _c("span", [_vm._v(_vm._s(_vm.answer.created_at))])
-      ])
+        _vm._v(_vm._s(_vm.answer.user.name) + " . ")
+      ]),
+      _vm._v(" "),
+      _c("small", [_vm._v(_vm._s(_vm.answer.time))])
     ]),
     _vm._v(" "),
     _c("p", { staticClass: "reply-body mb-0" }, [
       _vm._v(_vm._s(_vm.answer.body))
-    ]),
-    _vm._v(" "),
-    _c("div", [
-      _c("input", { attrs: { type: "hidden" } }),
-      _vm._v(" "),
-      _c("input", {
-        staticClass:
-          "btn text-info bg-transparent rounded-sm px-1 py-0 reply-reply-btn",
-        attrs: { type: "button", value: "reply comment" }
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "text-form comment-edit-form mx-5 mt-3",
-          staticStyle: { display: "none" }
-        },
-        [
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "textarea",
-              {
-                staticClass: "form-control reply-edit-textarea",
-                attrs: { cols: "5", rows: "2" }
-              },
-              [_vm._v(_vm._s(_vm.answer.body))]
-            ),
-            _vm._v(" "),
-            _c("button", { staticClass: "mt-2 update nav-link btn" }, [
-              _vm._v("Update Answer")
-            ])
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _vm._m(0)
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "text-form comment-reply-form mx-5 mt-3",
-        staticStyle: { display: "none" }
-      },
-      [
-        _c("div", { staticClass: "form-group" }, [
-          _c("textarea", {
-            staticClass: "form-control reply-reply-textarea",
-            attrs: { cols: "5", rows: "2" }
-          }),
-          _vm._v(" "),
-          _c("button", { staticClass: "mt-2 nav-link btn reply" }, [
-            _vm._v(" Add Reply\n                ")
-          ])
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38684,17 +38601,10 @@ var render = function() {
                 "div",
                 { staticClass: "d-flex flex-column" },
                 _vm._l(_vm.answers, function(ans) {
-                  return _c(
-                    "answer-component",
-                    { key: ans.id, attrs: { answer: ans } },
-                    [
-                      _vm._v(
-                        "\n                           " +
-                          _vm._s(ans.body) +
-                          "\n                       "
-                      )
-                    ]
-                  )
+                  return _c("answer-component", {
+                    key: ans.id,
+                    attrs: { answer: ans }
+                  })
                 }),
                 1
               )

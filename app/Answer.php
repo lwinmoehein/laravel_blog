@@ -29,6 +29,9 @@ class Answer extends Model
     {
         return $this->morphMany('App\Image', 'imageable');
     }
+    public function getReadableCreatedAtAttribute(){
+        return $this->created_at->diffForHumans();
+    }
 
 
 }

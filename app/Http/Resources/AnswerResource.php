@@ -15,7 +15,10 @@ class AnswerResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "body"=>$this->body
+            "id"=>$this->id,
+            "body"=>$this->body,
+            "time"=>$this->created_at->diffForHumans(),
+            "user"=>$this->user
         ];
     }
 }
