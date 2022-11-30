@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::namespace('Api\V1')->middleware(['auth:sanctum'])->group(function () {
     Route::get('questions/{question}/answers','QuestionApiController@answers')->name('api.questions.answers');
-    Route::post('questions/{question}/answers','QuestionApiController@storeAnswer')->name('api.questions.answers.store');
+    Route::post('questions/answers','QuestionApiController@storeAnswer')->name('api.questions.answers.store');
 
     Route::put('answers/create','AnswerApiController@store')->name('api.answers.store');
     Route::delete('answers/delete','AnswerApiController@destroy')->name('api.answers.delete');

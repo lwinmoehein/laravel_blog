@@ -138,7 +138,7 @@ class QuestionController extends Controller
         $isVoteSuccess = false;
         $message = "";
 
-        $question = Question::where('id',$request->article_id)->get()->first();
+        $question = Question::where('id',$request->question_id)->get()->first();
 
         if(Gate::inspect('vote', Question::class)->denied()){
             return  redirect()->back()->withErrors("Vote ပေးနိုင်ခွင့်မရှိပါ။");
@@ -148,7 +148,7 @@ class QuestionController extends Controller
         if($request->vote_type==1){
             $response = Gate::inspect('upVote',$question);
             if ($response->allowed()) {
-                $isUpvoted = $this->voteService->upvote($request->article_id);
+                $isUpvoted = $this->voteService->upvote($request->question_id);
                 $message = "Upvoted the article.";
                 $isVoteSuccess = $isUpvoted;
             } else {
@@ -157,7 +157,7 @@ class QuestionController extends Controller
         }else if($request->vote_type==0){
             $response = Gate::inspect('upVote', $question);
             if ($response->allowed()) {
-                $isUpvoteRemoved = $this->voteService->removeUpVote($request->article_id);
+                $isUpvoteRemoved = $this->voteService->removeUpVote($request->question_id);
                 $message = "Upvoted removed.";
                 $isVoteSuccess = $isUpvoteRemoved;
             } else {
@@ -166,7 +166,7 @@ class QuestionController extends Controller
         }else if($request->vote_type==-1){
             $response = Gate::inspect('downVote', $question);
             if ($response->allowed()) {
-                $isDownVoted = $this->voteService->downVote($request->article_id);
+                $isDownVoted = $this->voteService->downVote($request->question_id);
                 $message = "Downvoted the article.";
                 $isVoteSuccess = $isDownVoted;
             } else {
@@ -175,7 +175,7 @@ class QuestionController extends Controller
         }else{
             $response = Gate::inspect('downVote', $question);
             if ($response->allowed()) {
-                $isDownVoteRemoved = $this->voteService->removeDownVote($request->article_id);
+                $isDownVoteRemoved = $this->voteService->removeDownVote($request->question_id);
                 $message = "Removed the downvote.";
                 $isVoteSuccess = $isDownVoteRemoved;
             } else {

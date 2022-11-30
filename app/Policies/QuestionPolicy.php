@@ -35,12 +35,12 @@ class QuestionPolicy
 
     public function upVote(User $user, Question $question)
     {
-        return $user->id == $question->user_id? Response::allow()
+        return $user->id != $question->user_id? Response::allow()
             : Response::deny('Cannot upvote your own question.');
     }
     public function downVote(?User $user, Question $question)
     {
-        return $user->id == $question->user_id? Response::allow()
+        return $user->id != $question->user_id? Response::allow()
             : Response::deny('Cannot downvote your own question.');
     }
 }

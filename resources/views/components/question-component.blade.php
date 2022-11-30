@@ -4,7 +4,7 @@
             <form method="POST" action="{{route('questions.vote')}}">
                 @csrf
                 <input type="hidden" name="vote_type" value="{{$question->is_up_voted?0:1}}">
-                <input type="hidden" name="article_id" value="{{$question->id}}">
+                <input type="hidden" name="question_id" value="{{$question->id}}">
                 <button type="submit" class="btn p-0"><i
                         class="fa fa-caret-up {{$question->is_up_voted?'text-primary':''}}"></i></button>
             </form>
@@ -12,7 +12,7 @@
             <form method="POST" action="{{route('questions.vote')}}">
                 @csrf
                 <input type="hidden" name="vote_type" value="{{$question->is_down_voted?-2:-1}}">
-                <input type="hidden" name="article_id" value="{{$question->id}}">
+                <input type="hidden" name="question_id" value="{{$question->id}}">
                 <button type="submit" class="btn p-0"><i
                         class="fa fa-caret-down {{$question->is_down_voted?'text-primary':''}}"></i></button>
             </form>

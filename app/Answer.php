@@ -8,6 +8,7 @@ class Answer extends Model
 {
     //
     protected $fillable = ['body', 'question_id','user_id','parent_id'];
+    protected $dates = ["created_at","updated_at"];
 
     public function question(){
        return $this->belongsTo(Question::class);

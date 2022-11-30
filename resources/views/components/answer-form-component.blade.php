@@ -18,7 +18,5 @@
                 <input type="submit" class="btn btn-primary" value="Post reply" id="comment">
             </div>
         </div>
-        </div>
-
     </form>
  </div>

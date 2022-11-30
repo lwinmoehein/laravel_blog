@@ -38,7 +38,7 @@ class QuestionApiController extends Controller
     }
 
     public  function answers(Question $question){
-        $answers = Answer::where("question_id",$question->id)->paginate(5);
+        $answers = Answer::where("question_id",$question->id)->orderBy("created_at","desc")->with("user")->paginate(20);
 
         return $this->respondWithSuccess([
             "message"=>"answers list",

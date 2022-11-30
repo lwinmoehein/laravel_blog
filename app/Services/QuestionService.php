@@ -43,27 +43,28 @@ class QuestionService
 
     public function store(QuestionStoreRequest $request){
 
-        if(!auth()->user()->can('store',Question::class)){
-            return  false;
-        }
+        try{
+            if(!auth()->user()->can('store',Question::class)){
+                return  false;
+            }
 
-        $isNotFirstTime  = auth()->user()->questions()->exists();
-        $newStudentAchievement = $this->achievementRepository->getByNameOrNull("မေးသူ");
+            $isNotFirstTime  = auth()->user()->questions()->exists();
+            $newStudentAchievement = $this->achievementRepository->getByNameOrNull("မေးသူ");
 
-        if(!$isNotFirstTime && $newStudentAchievement!=null && !$this->achievementRepository->isExist(auth()->user()->id,$newStudentAchievement->id)){
-            $this->achievementService->storeUserAchievement(auth()->user(),$newStudentAchievement);
-            auth()->user()->notify(new GotNewAchievement($newStudentAchievement, auth()->user()));
+            if(!$isNotFirstTime && $newStudentAchievement!=null && !$this->achievementRepository->isExist(auth()->user()->id,$newStudentAchievement->id)){
+                $this->achievementService->storeUserAchievement(auth()->user(),$newStudentAchievement);
+                auth()->user()->notify(new GotNewAchievement($newStudentAchievement, auth()->user()));
 
+            }
             $question= new Question($request->validated());
             $question->slug = $this->getSlugFromString($request->title);
             $question->fill(['user_id'=>auth()->id()])->save();
             $question->tags()->attach($request['tags']);
             $question->images()->save(new Image(['url'=>$request->image_url]));
-
-            return  true;
+            return true;
+        }catch (\Exception $exception){
+            return false;
         }
-
-        return false;
     }
 
     public function update(QuestionStoreRequest $request, $id){
