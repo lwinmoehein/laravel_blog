@@ -11,7 +11,8 @@
                     <span>Filter By</span>
                 </a>
             </div>
-            <x-notification-list-component :notifications="$notifications"/>
+{{--            <x-notification-list-component :notifications="$notifications"/>--}}
+            <notifications-section-component/>
         </div>
     </div>
 

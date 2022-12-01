@@ -23,6 +23,8 @@ Vue.component('answer-component', require('./components/answers/AnswerComponent.
 Vue.component('answer-list-component', require('./components/answers/AnswerListComponent.vue').default);
 Vue.component('answer-form-component', require('./components/answers/AnswerFormComponent.vue').default);
 
+Vue.component('notifications-section-component', require('./components/notifications/NotificationsSectionComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

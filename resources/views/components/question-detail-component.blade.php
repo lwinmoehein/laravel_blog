@@ -1,5 +1,5 @@
 <div class="">
-    <h1>{{$question->title}}</h1>
+    <h5>{{$question->title}}</h5>
     <span class="text-primary">{{$question->updated_at->diffForHumans()}}</span>
     <span>asked by </span>
     <span class="text-primary font-weight-bold">{{$question->user->name}}</span>

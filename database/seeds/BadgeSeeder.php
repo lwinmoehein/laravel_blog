@@ -33,5 +33,7 @@ class BadgeSeeder extends Seeder
             "name"=>"Guardian",
             "description"=>"မသင့်လျော်သည့် User account များအား ban နိုင်ပါသည်။"
         ]);
+
+
     }
 }

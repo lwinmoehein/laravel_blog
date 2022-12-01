@@ -21,6 +21,7 @@
         "laravel/telescope": "^3.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.4",
+        "pusher/pusher-php-server": "~4.0",
         "spatie/laravel-sluggable": "^2.6"
     },
     "require-dev": {

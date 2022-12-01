@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 use App\Achievement;
+use App\Events\Illuminate\Auth\Events\BadgeReceived;
 use App\Question;
 use App\Notifications\GotNewAchievement;
 use App\Repositories\AchievementRepository;
@@ -54,7 +55,7 @@ class QuestionService
             if(!$isNotFirstTime && $newStudentAchievement!=null && !$this->achievementRepository->isExist(auth()->user()->id,$newStudentAchievement->id)){
                 $this->achievementService->storeUserAchievement(auth()->user(),$newStudentAchievement);
                 auth()->user()->notify(new GotNewAchievement($newStudentAchievement, auth()->user()));
-
+                event(new BadgeReceived($newStudentAchievement));
             }
             $question= new Question($request->validated());
             $question->slug = $this->getSlugFromString($request->title);

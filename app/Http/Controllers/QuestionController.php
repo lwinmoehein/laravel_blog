@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Badge;
+use App\Events\Illuminate\Auth\Events\BadgeReceived;
+use App\Notifications\GotNewAchievement;
 use App\Question;
 use App\Repositories\AchievementRepository;
 use App\Services\AchievementService;
 use App\Services\VoteService;
 use Illuminate\Http\Request;
 use App\Http\Requests\QuestionStoreRequest;
-
+use App\Achievement;
 use App\Repositories\QuestionRepository;
 use App\Repositories\TagRepository;
 use App\Repositories\UserRepository;
 
 use App\Services\QuestionService;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -27,6 +29,7 @@ class QuestionController extends Controller
     protected $achievementService;
     protected $achievementRepository;
     protected $voteService;
+
     //constructor
     //args (article repo,tag repo)
     public function __construct(
@@ -55,6 +58,9 @@ class QuestionController extends Controller
     //get all paginated questions
     public function index(Request $request)
     {
+        event(new BadgeReceived(Badge::first()));
+
+
         $questions=$this->questionRepository->all($request->tag);
         $tags = $this->tagRepository->all();
         return view('questions.index',compact(['questions','tags']));
