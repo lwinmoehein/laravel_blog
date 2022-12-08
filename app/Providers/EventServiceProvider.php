@@ -24,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\BadgeReceived' => [
             'App\Listeners\LogAndNotifyReceivedBadge',
         ],
+        'Illuminate\Auth\Events\NewNotificationCreated' => [
+            'App\Listeners\NotifyNewNotificationToUser',
+        ],
     ];
 
     /**

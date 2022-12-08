@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
-
+use App\User;
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('app-notifications', function () {
+Broadcast::channel('app-notifications', function (User $user) {
     return true;
 });

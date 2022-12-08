@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Badge;
 use App\Events\Illuminate\Auth\Events\BadgeReceived;
+use App\Events\Illuminate\Auth\Events\NewNotificationCreated;
 use App\Notifications\GotNewAchievement;
+use App\Notifications\GotNewBadge;
 use App\Question;
 use App\Repositories\AchievementRepository;
 use App\Services\AchievementService;
@@ -15,7 +17,6 @@ use App\Achievement;
 use App\Repositories\QuestionRepository;
 use App\Repositories\TagRepository;
 use App\Repositories\UserRepository;
-
 use App\Services\QuestionService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -58,11 +59,14 @@ class QuestionController extends Controller
     //get all paginated questions
     public function index(Request $request)
     {
-        event(new BadgeReceived(Badge::first()));
+        $firstNotification = auth()->user()->notifications()->first();
 
+        if($firstNotification)
+            event(new NewNotificationCreated(auth()->user()->notifications()->first()));
 
         $questions=$this->questionRepository->all($request->tag);
         $tags = $this->tagRepository->all();
+
         return view('questions.index',compact(['questions','tags']));
     }
 

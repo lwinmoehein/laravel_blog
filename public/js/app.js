@@ -2204,16 +2204,38 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.initializePusher();
   },
+  data: function data() {
+    return {
+      newNotificationsCount: 0
+    };
+  },
+  computed: {
+    isNotificationsNew: function isNotificationsNew() {
+      return this.newNotificationsCount > 0;
+    }
+  },
   methods: {
     initializePusher: function initializePusher() {
+      var token = document.querySelector('meta[name="csrf-token"]').content;
+      console.log("token:" + token);
       pusher_js__WEBPACK_IMPORTED_MODULE_0___default.a.logToConsole = true;
       var pusher = new pusher_js__WEBPACK_IMPORTED_MODULE_0___default.a('364175ab60b83d8bf249', {
-        cluster: 'us2'
+        cluster: 'us2',
+        authEndpoint: "/broadcasting/auth",
+        auth: {
+          headers: {
+            "X-CSRF-TOKEN": token
+          }
+        }
       });
-      var channel = pusher.subscribe('app-notifications');
-      channel.bind('new-notifications', function (data) {
-        alert(JSON.stringify(data));
+      var channel = pusher.subscribe('private-app-notifications');
+      channel.bind('got-new-notification', function (data) {
+        this.newNotificationsCount = 1;
+        alert(this.newNotificationsCount);
       });
+    },
+    onNewNotificationsClick: function onNewNotificationsClick() {
+      this.newNotificationsCount = 0;
     }
   }
 });
@@ -43651,7 +43673,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    Notifications\n")])
+  return _c(
+    "span",
+    {
+      staticClass: "nav-link px-3 py-1 mt-2 w-100",
+      attrs: { role: "button" },
+      on: { click: _vm.onNewNotificationsClick }
+    },
+    [
+      _c(
+        "i",
+        {
+          staticClass: "fa fa-bell",
+          class: { "text-danger": _vm.newNotificationsCount > 0 }
+        },
+        [_vm._v(_vm._s(_vm.newNotificationsCount))]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

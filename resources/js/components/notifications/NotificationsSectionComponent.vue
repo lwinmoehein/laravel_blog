@@ -1,7 +1,7 @@
 <template>
-    <div>
-        Notifications
-    </div>
+    <span class="nav-link px-3 py-1 mt-2 w-100"  role="button" @click="onNewNotificationsClick">
+        <i class="fa fa-bell" :class="{'text-danger':newNotificationsCount>0}">{{newNotificationsCount}}</i>
+    </span>
 </template>
 
 <script>
@@ -12,20 +12,41 @@ export default {
     mounted() {
         this.initializePusher()
     },
+    data(){
+        return {
+            newNotificationsCount:0
+        }
+    },
+    computed:{
+        isNotificationsNew(){
+            return this.newNotificationsCount>0
+        }
+    },
     methods:{
         initializePusher(){
+            const token =  document.querySelector('meta[name="csrf-token"]').content
+            console.log("token:"+token)
             Pusher.logToConsole = true;
 
-            var pusher = new Pusher('364175ab60b83d8bf249', {
-                cluster: 'us2'
+            const pusher = new Pusher('364175ab60b83d8bf249', {
+                cluster: 'us2',
+                authEndpoint: "/broadcasting/auth",
+                auth: {
+                    headers:{
+                        "X-CSRF-TOKEN": token
+                    }
+                }
             });
 
-            var channel = pusher.subscribe('app-notifications');
-            channel.bind('new-notifications', function(data) {
-                alert(JSON.stringify(data));
+            const channel = pusher.subscribe('private-app-notifications');
+            channel.bind('got-new-notification', function(data) {
+
+                this.newNotificationsCount=1
+                alert(this.newNotificationsCount)
             });
-
-
+        },
+        onNewNotificationsClick(){
+             this.newNotificationsCount = 0
         }
     }
 }

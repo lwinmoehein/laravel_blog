@@ -44,10 +44,10 @@ Route::resource('users', 'UserController');
 
 
 //article Answer routes
-Route::put('answers/create','AnswerController@store')->name('answers.store');
-Route::delete('answers/delete','AnswerController@destroy')->name('answers.delete');
-Route::patch('answers','AnswerController@update')->name('answers.update');
-Route::put('answers/nested','AnswerController@storenested')->name('answers.nested');
+//Route::put('answers/create','AnswerController@store')->name('answers.store');
+//Route::delete('answers/delete','AnswerController@destroy')->name('answers.delete');
+//Route::patch('answers','AnswerController@update')->name('answers.update');
+//Route::put('answers/nested','AnswerController@storenested')->name('answers.nested');
 
 //image routes
 Route::post('images/store','ImageController@store')->name('images.store');
