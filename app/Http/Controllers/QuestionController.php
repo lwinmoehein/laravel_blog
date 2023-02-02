@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Badge;
-use App\Events\Illuminate\Auth\Events\BadgeReceived;
 use App\Events\Illuminate\Auth\Events\NewNotificationCreated;
 use App\Notifications\GotNewAchievement;
-use App\Notifications\GotNewBadge;
 use App\Question;
 use App\Repositories\AchievementRepository;
 use App\Services\AchievementService;
@@ -18,7 +15,6 @@ use App\Repositories\QuestionRepository;
 use App\Repositories\TagRepository;
 use App\Repositories\UserRepository;
 use App\Services\QuestionService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class QuestionController extends Controller
@@ -27,8 +23,6 @@ class QuestionController extends Controller
     protected $questionRepository;
     protected $tagRepository;
     protected $userRepository;
-    protected $achievementService;
-    protected $achievementRepository;
     protected $voteService;
 
     //constructor
@@ -37,15 +31,11 @@ class QuestionController extends Controller
         QuestionRepository    $questionRepository,
         TagRepository         $tagRepository,
         UserRepository        $userRepository,
-        AchievementService    $achievementService,
-        AchievementRepository $achievementRepository,
         VoteService           $voteService
     )
     {
         $this->questionService=new QuestionService(
-            $questionRepository,
-            $achievementRepository,
-            $achievementService
+            $questionRepository
         );
 
         $this->userRepository=$userRepository;
@@ -100,7 +90,6 @@ class QuestionController extends Controller
 
     }
 
-    //edit an article (view)
     public function edit($id)
     {
 

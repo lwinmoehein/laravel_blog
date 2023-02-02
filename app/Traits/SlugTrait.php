@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait SlugTrait
+trait Slug
 {
     function getSlugFromString($string){
         $invalidCharacterPattern = '/[^က-႟a-zA-Z]/';
@@ -11,8 +11,5 @@ trait SlugTrait
         $replacedStringWithDashes =  preg_replace($invalidCharacterPattern,"-",$string);
 
         return preg_replace($twoOrMoreDashPattern,"-",$replacedStringWithDashes);
-    }
-
-    function isUnique(){
     }
 }
