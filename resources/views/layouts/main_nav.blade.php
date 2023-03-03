@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md bg-primary shadow-lg fixed-top" >
-    <div class="container px-md-5">
+    <div class="container px-md-3">
         <a class="navbar-brand text-white" href="{{ url('/') }}">
-            {{ config('app.name', 'Bloggars') }}
+            {{ config('app.name', 'MM Overflow') }}
         </a>
         <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="fa fa-bars text-white"></span>
