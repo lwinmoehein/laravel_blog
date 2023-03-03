@@ -36,14 +36,16 @@ services:
     restart: unless-stopped
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     networks:
       - mmoverflow
-
-
-
+  certbot:
+    image: certbot/certbot
 networks:
   mmoverflow:
     driver: bridge
